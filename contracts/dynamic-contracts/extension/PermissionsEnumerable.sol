@@ -58,7 +58,7 @@ contract PermissionsEnumerable is IPermissionsEnumerable, Permissions {
         uint256 currentIndex = data.roleMembers[role].index;
         uint256 check;
 
-        for (uint256 i = 0; i < currentIndex; i += 1) {
+        for (uint256 i = 0; i < currentIndex; ) {
             if (data.roleMembers[role].members[i] != address(0)) {
                 if (check == index) {
                     member = data.roleMembers[role].members[i];
@@ -68,6 +68,7 @@ contract PermissionsEnumerable is IPermissionsEnumerable, Permissions {
             } else if (hasRole(role, address(0)) && i == data.roleMembers[role].indexOf[address(0)]) {
                 check += 1;
             }
+            unchecked { ++i; }
         }
     }
 
@@ -84,10 +85,11 @@ contract PermissionsEnumerable is IPermissionsEnumerable, Permissions {
         PermissionsEnumerableStorage.Data storage data = PermissionsEnumerableStorage.permissionsEnumerableStorage();
         uint256 currentIndex = data.roleMembers[role].index;
 
-        for (uint256 i = 0; i < currentIndex; i += 1) {
+        for (uint256 i = 0; i < currentIndex; ) {
             if (data.roleMembers[role].members[i] != address(0)) {
                 count += 1;
             }
+            unchecked { ++i; }
         }
         if (hasRole(role, address(0))) {
             count += 1;

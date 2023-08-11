@@ -86,7 +86,7 @@ abstract contract Drop1155 is IDrop1155 {
         conditionList.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _conditions.length; i++) {
+        for (uint256 i = 0; i < _conditions.length; ) {
             require(i == 0 || lastConditionStartTimestamp < _conditions[i].startTimestamp, "ST");
 
             uint256 supplyClaimedAlready = conditionList.conditions[newStartIndex + i].supplyClaimed;
@@ -98,6 +98,7 @@ abstract contract Drop1155 is IDrop1155 {
             conditionList.conditions[newStartIndex + i].supplyClaimed = supplyClaimedAlready;
 
             lastConditionStartTimestamp = _conditions[i].startTimestamp;
+            unchecked { ++i; }
         }
 
         /**
@@ -111,13 +112,15 @@ abstract contract Drop1155 is IDrop1155 {
          *  by the conditions in `_conditions`.
          */
         if (_resetClaimEligibility) {
-            for (uint256 i = existingStartIndex; i < newStartIndex; i++) {
+            for (uint256 i = existingStartIndex; i < newStartIndex; ) {
                 delete conditionList.conditions[i];
+                unchecked { ++i; }
             }
         } else {
             if (existingPhaseCount > _conditions.length) {
-                for (uint256 i = _conditions.length; i < existingPhaseCount; i++) {
+                for (uint256 i = _conditions.length; i < existingPhaseCount; ) {
                     delete conditionList.conditions[newStartIndex + i];
+                    unchecked { ++i; }
                 }
             }
         }
@@ -189,10 +192,11 @@ abstract contract Drop1155 is IDrop1155 {
     /// @dev At any given moment, returns the uid for the active claim condition.
     function getActiveClaimConditionId(uint256 _tokenId) public view returns (uint256) {
         ClaimConditionList storage conditionList = claimCondition[_tokenId];
-        for (uint256 i = conditionList.currentStartId + conditionList.count; i > conditionList.currentStartId; i--) {
+        for (uint256 i = conditionList.currentStartId + conditionList.count; i > conditionList.currentStartId; ) {
             if (block.timestamp >= conditionList.conditions[i - 1].startTimestamp) {
                 return i - 1;
             }
+            unchecked { --i; }
         }
 
         revert("!CONDITION.");

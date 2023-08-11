@@ -58,13 +58,14 @@ contract BatchMintMetadata {
         uint256 numOfTokenBatches = getBaseURICount();
         uint256[] memory indices = data.batchIds;
 
-        for (uint256 i = 0; i < numOfTokenBatches; i += 1) {
+        for (uint256 i = 0; i < numOfTokenBatches; ) {
             if (_tokenId < indices[i]) {
                 index = i;
                 batchId = indices[i];
 
                 return (batchId, index);
             }
+            unchecked { ++i; }
         }
 
         revert("Invalid tokenId");
@@ -77,10 +78,11 @@ contract BatchMintMetadata {
         uint256 numOfTokenBatches = getBaseURICount();
         uint256[] memory indices = data.batchIds;
 
-        for (uint256 i = 0; i < numOfTokenBatches; i += 1) {
+        for (uint256 i = 0; i < numOfTokenBatches; ) {
             if (_tokenId < indices[i]) {
                 return data.baseURI[indices[i]];
             }
+            unchecked { ++i; }
         }
         revert("Invalid tokenId");
     }

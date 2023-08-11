@@ -232,8 +232,9 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
 
         _allAuctions = new Auction[](_endId - _startId + 1);
 
-        for (uint256 i = _startId; i <= _endId; i += 1) {
+        for (uint256 i = _startId; i <= _endId; ) {
             _allAuctions[i - _startId] = data.auctions[i];
+            unchecked { ++i; }
         }
     }
 
@@ -248,7 +249,7 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
         Auction[] memory _auctions = new Auction[](_endId - _startId + 1);
         uint256 _auctionCount;
 
-        for (uint256 i = _startId; i <= _endId; i += 1) {
+        for (uint256 i = _startId; i <= _endId; ) {
             uint256 j = i - _startId;
             _auctions[j] = data.auctions[i];
             if (
@@ -259,12 +260,13 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
             ) {
                 _auctionCount += 1;
             }
+            unchecked { ++i; }
         }
 
         _validAuctions = new Auction[](_auctionCount);
         uint256 index = 0;
         uint256 count = _auctions.length;
-        for (uint256 i = 0; i < count; i += 1) {
+        for (uint256 i = 0; i < count; ) {
             if (
                 _auctions[i].startTimestamp <= block.timestamp &&
                 _auctions[i].endTimestamp > block.timestamp &&
@@ -273,6 +275,7 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
             ) {
                 _validAuctions[index++] = _auctions[i];
             }
+            unchecked { ++i; }
         }
     }
 

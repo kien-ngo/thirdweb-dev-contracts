@@ -199,10 +199,11 @@ contract DropERC1155_V2 is
 
     /// @dev Returns the URI for a given tokenId.
     function uri(uint256 _tokenId) public view override returns (string memory _tokenURI) {
-        for (uint256 i = 0; i < baseURIIndices.length; i += 1) {
+        for (uint256 i = 0; i < baseURIIndices.length; ) {
             if (_tokenId < baseURIIndices[i]) {
                 return string(abi.encodePacked(baseURI[baseURIIndices[i]], _tokenId.toString()));
             }
+            unchecked { ++i; }
         }
 
         return "";
@@ -345,7 +346,7 @@ contract DropERC1155_V2 is
         condition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _phases.length; i++) {
+        for (uint256 i = 0; i < _phases.length; ) {
             require(
                 i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp,
                 "startTimestamp must be in ascending order."
@@ -358,6 +359,7 @@ contract DropERC1155_V2 is
             condition.phases[newStartIndex + i].supplyClaimed = supplyClaimedAlready;
 
             lastConditionStartTimestamp = _phases[i].startTimestamp;
+            unchecked { ++i; }
         }
 
         /**
@@ -371,15 +373,17 @@ contract DropERC1155_V2 is
          *  by the conditions in `_phases`.
          */
         if (_resetClaimEligibility) {
-            for (uint256 i = existingStartIndex; i < newStartIndex; i++) {
+            for (uint256 i = existingStartIndex; i < newStartIndex; ) {
                 delete condition.phases[i];
                 delete condition.limitMerkleProofClaim[i];
+                unchecked { ++i; }
             }
         } else {
             if (existingPhaseCount > _phases.length) {
-                for (uint256 i = _phases.length; i < existingPhaseCount; i++) {
+                for (uint256 i = _phases.length; i < existingPhaseCount; ) {
                     delete condition.phases[newStartIndex + i];
                     delete condition.limitMerkleProofClaim[newStartIndex + i];
+                    unchecked { ++i; }
                 }
             }
         }
@@ -509,10 +513,11 @@ contract DropERC1155_V2 is
     /// @dev At any given moment, returns the uid for the active claim condition, for a given tokenId.
     function getActiveClaimConditionId(uint256 _tokenId) public view returns (uint256) {
         ClaimConditionList storage conditionList = claimCondition[_tokenId];
-        for (uint256 i = conditionList.currentStartId + conditionList.count; i > conditionList.currentStartId; i--) {
+        for (uint256 i = conditionList.currentStartId + conditionList.count; i > conditionList.currentStartId; ) {
             if (block.timestamp >= conditionList.phases[i - 1].startTimestamp) {
                 return i - 1;
             }
+            unchecked { --i; }
         }
 
         revert("no active mint condition.");
@@ -706,14 +711,16 @@ contract DropERC1155_V2 is
         }
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
+                unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
+                unchecked { ++i; }
             }
         }
     }

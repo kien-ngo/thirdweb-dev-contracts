@@ -223,21 +223,23 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
         uint256 indexedTokenCount = _indexedTokens.length;
         uint256 stakerTokenCount = 0;
 
-        for (uint256 i = 0; i < indexedTokenCount; i++) {
+        for (uint256 i = 0; i < indexedTokenCount; ) {
             _stakedAmounts[i] = stakers[_indexedTokens[i]][_staker].amountStaked;
             if (_stakedAmounts[i] > 0) stakerTokenCount += 1;
+            unchecked { ++i; }
         }
 
         _tokensStaked = new uint256[](stakerTokenCount);
         _tokenAmounts = new uint256[](stakerTokenCount);
         uint256 count = 0;
-        for (uint256 i = 0; i < indexedTokenCount; i++) {
+        for (uint256 i = 0; i < indexedTokenCount; ) {
             if (_stakedAmounts[i] > 0) {
                 _tokensStaked[count] = _indexedTokens[i];
                 _tokenAmounts[count] = _stakedAmounts[i];
                 _totalRewards += _availableRewards(_indexedTokens[i], _staker);
                 count += 1;
             }
+            unchecked { ++i; }
         }
     }
 
@@ -307,12 +309,13 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
 
         if (_amountStaked == _amount) {
             address[] memory _stakersArray = stakersArray[_tokenId];
-            for (uint256 i = 0; i < _stakersArray.length; ++i) {
+            for (uint256 i = 0; i < _stakersArray.length; ) {
                 if (_stakersArray[i] == _stakeMsgSender()) {
                     stakersArray[_tokenId][i] = _stakersArray[_stakersArray.length - 1];
                     stakersArray[_tokenId].pop();
                     break;
                 }
+                unchecked { ++i; }
             }
         }
         stakers[_tokenId][_stakeMsgSender()].amountStaked -= _amount;
@@ -379,7 +382,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
 
         if (conditionId == 0) {
             uint64 _nextDefaultConditionId = nextDefaultConditionId;
-            for (; conditionId < _nextDefaultConditionId; conditionId += 1) {
+            for (; conditionId < _nextDefaultConditionId; ) {
                 StakingCondition memory _defaultCondition = defaultCondition[conditionId];
 
                 stakingConditions[_tokenId][conditionId] = StakingCondition({
@@ -388,6 +391,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
                     startTimestamp: _defaultCondition.startTimestamp,
                     endTimestamp: _defaultCondition.endTimestamp
                 });
+                unchecked { ++conditionId; }
             }
         }
 
@@ -430,7 +434,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
         if (_nextConditionId == 0) {
             _nextConditionId = nextDefaultConditionId;
 
-            for (uint64 i = _stakerConditionId; i < _nextConditionId; i += 1) {
+            for (uint64 i = _stakerConditionId; i < _nextConditionId; ) {
                 StakingCondition memory condition = defaultCondition[i];
 
                 uint256 startTime = i != _stakerConditionId ? condition.startTimestamp : staker.timeOfLastUpdate;
@@ -446,9 +450,10 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
                 );
 
                 _rewards = noOverflowProduct && noOverflowSum ? rewardsSum : _rewards;
+                unchecked { ++i; }
             }
         } else {
-            for (uint64 i = _stakerConditionId; i < _nextConditionId; i += 1) {
+            for (uint64 i = _stakerConditionId; i < _nextConditionId; ) {
                 StakingCondition memory condition = stakingConditions[_tokenId][i];
 
                 uint256 startTime = i != _stakerConditionId ? condition.startTimestamp : staker.timeOfLastUpdate;
@@ -464,6 +469,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
                 );
 
                 _rewards = noOverflowProduct && noOverflowSum ? rewardsSum : _rewards;
+                unchecked { ++i; }
             }
         }
     }

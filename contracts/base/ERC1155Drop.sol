@@ -139,8 +139,9 @@ contract ERC1155Drop is
         require(caller == _owner || isApprovedForAll[_owner][caller], "Unapproved caller");
         require(_tokenIds.length == _amounts.length, "Length mismatch");
 
-        for (uint256 i = 0; i < _tokenIds.length; i += 1) {
+        for (uint256 i = 0; i < _tokenIds.length; ) {
             require(balanceOf[_owner][_tokenIds[i]] >= _amounts[i], "Not enough tokens owned");
+            unchecked { ++i; }
         }
 
         _burnBatch(_owner, _tokenIds, _amounts);
@@ -325,14 +326,16 @@ contract ERC1155Drop is
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
+                unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
+                unchecked { ++i; }
             }
         }
     }

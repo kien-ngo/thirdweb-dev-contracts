@@ -116,7 +116,7 @@ contract AccountCore is IAccountCore, Initializable, Multicall, BaseAccount, ERC
             (address[] memory targets, uint256[] memory values, ) = decodeExecuteBatchCalldata(_userOp.callData);
 
             // For each target+value pair, check if the value is within the allowed range and if the target is approved.
-            for (uint256 i = 0; i < targets.length; i++) {
+            for (uint256 i = 0; i < targets.length; ) {
                 if (
                     permissions.nativeTokenLimitPerTransaction < values[i] ||
                     !data.approvedTargets[_signer].contains(targets[i])
@@ -124,6 +124,7 @@ contract AccountCore is IAccountCore, Initializable, Multicall, BaseAccount, ERC
                     // Account: value too high OR Account: target not approved.
                     return false;
                 }
+                unchecked { ++i; }
             }
         } else {
             // Account: calling invalid fn.

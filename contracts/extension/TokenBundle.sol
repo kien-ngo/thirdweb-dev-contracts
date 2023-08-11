@@ -43,9 +43,10 @@ abstract contract TokenBundle is ITokenBundle {
         require(targetCount > 0, "!Tokens");
         require(bundle[_bundleId].count == 0, "id exists");
 
-        for (uint256 i = 0; i < targetCount; i += 1) {
+        for (uint256 i = 0; i < targetCount; ) {
             _checkTokenType(_tokensToBind[i]);
             bundle[_bundleId].tokens[i] = _tokensToBind[i];
+            unchecked { ++i; }
         }
 
         bundle[_bundleId].count = targetCount;
@@ -59,13 +60,14 @@ abstract contract TokenBundle is ITokenBundle {
         uint256 targetCount = _tokensToBind.length;
         uint256 check = currentCount > targetCount ? currentCount : targetCount;
 
-        for (uint256 i = 0; i < check; i += 1) {
+        for (uint256 i = 0; i < check; ) {
             if (i < targetCount) {
                 _checkTokenType(_tokensToBind[i]);
                 bundle[_bundleId].tokens[i] = _tokensToBind[i];
             } else if (i < currentCount) {
                 delete bundle[_bundleId].tokens[i];
             }
+            unchecked { ++i; }
         }
 
         bundle[_bundleId].count = targetCount;
@@ -126,8 +128,9 @@ abstract contract TokenBundle is ITokenBundle {
 
     /// @dev Lets the calling contract delete a particular bundle.
     function _deleteBundle(uint256 _bundleId) internal {
-        for (uint256 i = 0; i < bundle[_bundleId].count; i += 1) {
+        for (uint256 i = 0; i < bundle[_bundleId].count; ) {
             delete bundle[_bundleId].tokens[i];
+            unchecked { ++i; }
         }
         bundle[_bundleId].count = 0;
     }

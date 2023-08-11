@@ -118,8 +118,9 @@ contract Pack is
          */
         address[] memory forwarders = new address[](_trustedForwarders.length + 1);
         uint256 i;
-        for (; i < _trustedForwarders.length; i++) {
+        for (; i < _trustedForwarders.length; ) {
             forwarders[i] = _trustedForwarders[i];
+            unchecked { ++i; }
         }
         forwarders[i] = forwarder;
         __ERC2771Context_init(forwarders);
@@ -213,8 +214,9 @@ contract Pack is
         require(_contents.length > 0 && _contents.length == _numOfRewardUnits.length, "!Len");
 
         if (!hasRole(assetRole, address(0))) {
-            for (uint256 i = 0; i < _contents.length; i += 1) {
+            for (uint256 i = 0; i < _contents.length; ) {
                 _checkRole(assetRole, _contents[i].assetContract);
+                unchecked { ++i; }
             }
         }
 
@@ -258,8 +260,9 @@ contract Pack is
         require(balanceOf(_recipient, _packId) != 0, "!Bal");
 
         if (!hasRole(assetRole, address(0))) {
-            for (uint256 i = 0; i < _contents.length; i += 1) {
+            for (uint256 i = 0; i < _contents.length; ) {
                 _checkRole(assetRole, _contents[i].assetContract);
+                unchecked { ++i; }
             }
         }
 
@@ -305,7 +308,7 @@ contract Pack is
     ) internal returns (uint256 supplyToMint) {
         uint256 sumOfRewardUnits;
 
-        for (uint256 i = 0; i < _contents.length; i += 1) {
+        for (uint256 i = 0; i < _contents.length; ) {
             require(_contents[i].totalAmount != 0, "0 amt");
             require(_contents[i].totalAmount % _numOfRewardUnits[i] == 0, "!R");
             require(_contents[i].tokenType != TokenType.ERC721 || _contents[i].totalAmount == 1, "!R");
@@ -313,14 +316,16 @@ contract Pack is
             sumOfRewardUnits += _numOfRewardUnits[i];
 
             packInfo[packId].perUnitAmounts.push(_contents[i].totalAmount / _numOfRewardUnits[i]);
+            unchecked { ++i; }
         }
 
         require(sumOfRewardUnits % amountPerOpen == 0, "!Amt");
         supplyToMint = sumOfRewardUnits / amountPerOpen;
 
         if (isUpdate) {
-            for (uint256 i = 0; i < _contents.length; i += 1) {
+            for (uint256 i = 0; i < _contents.length; ) {
                 _addTokenInBundle(_contents[i], packId);
+                unchecked { ++i; }
             }
             _transferTokenBatch(_msgSender(), address(this), _contents);
         } else {
@@ -344,12 +349,12 @@ contract Pack is
 
         (Token[] memory _token, ) = getPackContents(_packId);
         bool[] memory _isUpdated = new bool[](totalRewardKinds);
-        for (uint256 i = 0; i < numOfRewardUnitsToDistribute; i += 1) {
+        for (uint256 i = 0; i < numOfRewardUnitsToDistribute; ) {
             uint256 randomVal = uint256(keccak256(abi.encode(random, i)));
             uint256 target = randomVal % totalRewardUnits;
             uint256 step;
 
-            for (uint256 j = 0; j < totalRewardKinds; j += 1) {
+            for (uint256 j = 0; j < totalRewardKinds; ) {
                 uint256 totalRewardUnitsOfKind = _token[j].totalAmount / pack.perUnitAmounts[j];
 
                 if (target < step + totalRewardUnitsOfKind) {
@@ -367,13 +372,16 @@ contract Pack is
                 } else {
                     step += totalRewardUnitsOfKind;
                 }
+                unchecked { ++j; }
             }
+            unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < totalRewardKinds; i += 1) {
+        for (uint256 i = 0; i < totalRewardKinds; ) {
             if (_isUpdated[i]) {
                 _updateTokenInBundle(_token[i], _packId, i);
             }
+            unchecked { ++i; }
         }
     }
 
@@ -392,8 +400,9 @@ contract Pack is
         contents = new Token[](total);
         perUnitAmounts = new uint256[](total);
 
-        for (uint256 i = 0; i < total; i += 1) {
+        for (uint256 i = 0; i < total; ) {
             contents[i] = getTokenOfBundle(_packId, i);
+            unchecked { ++i; }
         }
         perUnitAmounts = pack.perUnitAmounts;
     }
@@ -444,21 +453,24 @@ contract Pack is
         }
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
+                unchecked { ++i; }
             }
         } else {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 // pack can no longer be updated after first transfer to non-zero address
                 if (canUpdatePack[ids[i]] && amounts[i] != 0) {
                     canUpdatePack[ids[i]] = false;
                 }
+                unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
+                unchecked { ++i; }
             }
         }
     }

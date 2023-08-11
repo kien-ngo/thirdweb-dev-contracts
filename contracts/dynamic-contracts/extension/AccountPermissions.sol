@@ -83,13 +83,15 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
         address[] memory currentTargets = data.approvedTargets[targetSigner].values();
         uint256 currentLen = currentTargets.length;
 
-        for (uint256 i = 0; i < currentLen; i += 1) {
+        for (uint256 i = 0; i < currentLen; ) {
             data.approvedTargets[targetSigner].remove(currentTargets[i]);
+            unchecked { ++i; }
         }
 
         uint256 len = _req.approvedTargets.length;
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             data.approvedTargets[targetSigner].add(_req.approvedTargets[i]);
+            unchecked { ++i; }
         }
 
         _afterSignerPermissionsUpdate(_req);
@@ -152,7 +154,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
 
         uint256 len = allSigners.length;
         signers = new SignerPermissions[](len);
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             address signer = allSigners[i];
             SignerPermissionsStatic memory permissions = data.signerPermissions[signer];
 
@@ -163,6 +165,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
                 permissions.startTimestamp,
                 permissions.endTimestamp
             );
+            unchecked { ++i; }
         }
     }
 
@@ -175,7 +178,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
         uint256 numOfActiveSigners = 0;
         bool[] memory isSignerActive = new bool[](len);
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             address signer = allSigners[i];
 
             bool isActive = isActiveSigner(signer);
@@ -183,11 +186,12 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
             if (isActive) {
                 numOfActiveSigners++;
             }
+            unchecked { ++i; }
         }
 
         signers = new SignerPermissions[](numOfActiveSigners);
         uint256 index = 0;
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             if (!isSignerActive[i]) {
                 continue;
             }
@@ -201,6 +205,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
                 permissions.startTimestamp,
                 permissions.endTimestamp
             );
+            unchecked { ++i; }
         }
     }
 

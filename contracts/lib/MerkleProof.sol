@@ -29,7 +29,7 @@ library MerkleProof {
         bytes32 computedHash = leaf;
         uint256 index = 0;
 
-        for (uint256 i = 0; i < proof.length; i++) {
+        for (uint256 i = 0; i < proof.length; ) {
             index *= 2;
             bytes32 proofElement = proof[i];
 
@@ -41,6 +41,7 @@ library MerkleProof {
                 computedHash = keccak256(abi.encodePacked(proofElement, computedHash));
                 index += 1;
             }
+            unchecked { ++i; }
         }
 
         // Check if the computed hash (root) is equal to the provided root

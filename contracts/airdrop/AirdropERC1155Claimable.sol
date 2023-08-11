@@ -105,10 +105,11 @@ contract AirdropERC1155Claimable is
             "length mismatch."
         );
 
-        for (uint256 i = 0; i < _tokenIds.length; i++) {
+        for (uint256 i = 0; i < _tokenIds.length; ) {
             merkleRoot[_tokenIds[i]] = _merkleRoot[i];
             maxWalletClaimCount[_tokenIds[i]] = _maxWalletClaimCount[i];
             availableAmount[_tokenIds[i]] = _availableAmounts[i];
+            unchecked { ++i; }
         }
     }
 

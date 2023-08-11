@@ -39,9 +39,10 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
 
         uint256 len = _extensionNames.length;
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             Extension memory extension = IExtensionRegistry(_extensionRegistry).getExtension(_extensionNames[i]);
             map.setExtension(extension);
+            unchecked { ++i; }
         }
     }
 
@@ -91,10 +92,11 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
         uint256 namesLen = names.length;
 
         uint256 overrides = 0;
-        for (uint256 i = 0; i < mapExtensionsLen; i += 1) {
+        for (uint256 i = 0; i < mapExtensionsLen; ) {
             if (data.extensionNames.contains(mapExtensions[i].metadata.name)) {
                 overrides += 1;
             }
+            unchecked { ++i; }
         }
 
         uint256 total = (namesLen + mapExtensionsLen) - overrides;
@@ -102,17 +104,19 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
         allExtensions = new Extension[](total);
         uint256 idx = 0;
 
-        for (uint256 i = 0; i < mapExtensionsLen; i += 1) {
+        for (uint256 i = 0; i < mapExtensionsLen; ) {
             string memory name = mapExtensions[i].metadata.name;
             if (!data.extensionNames.contains(name)) {
                 allExtensions[idx] = mapExtensions[i];
                 idx += 1;
             }
+            unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < namesLen; i += 1) {
+        for (uint256 i = 0; i < namesLen; ) {
             allExtensions[idx] = data.extensions[names[i]];
             idx += 1;
+            unchecked { ++i; }
         }
     }
 

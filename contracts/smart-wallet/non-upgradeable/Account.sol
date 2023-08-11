@@ -138,7 +138,7 @@ contract Account is
             (address[] memory targets, uint256[] memory values, ) = decodeExecuteBatchCalldata(_userOp.callData);
 
             // For each target+value pair, check if the value is within the allowed range and if the target is approved.
-            for (uint256 i = 0; i < targets.length; i++) {
+            for (uint256 i = 0; i < targets.length; ) {
                 if (
                     permissions.nativeTokenLimitPerTransaction < values[i] ||
                     !data.approvedTargets[_signer].contains(targets[i])
@@ -146,6 +146,7 @@ contract Account is
                     // Account: value too high OR Account: target not approved.
                     return false;
                 }
+                unchecked { ++i; }
             }
         } else {
             // Account: calling invalid fn.
@@ -193,8 +194,9 @@ contract Account is
         _registerOnFactory();
 
         require(_target.length == _calldata.length && _target.length == _value.length, "Account: wrong array lengths.");
-        for (uint256 i = 0; i < _target.length; i++) {
+        for (uint256 i = 0; i < _target.length; ) {
             _call(_target[i], _value[i], _calldata[i]);
+            unchecked { ++i; }
         }
     }
 

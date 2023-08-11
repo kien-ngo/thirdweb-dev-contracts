@@ -323,7 +323,7 @@ contract TieredDrop is
         uint256 startIdToMap = startTokenIdToMint;
         uint256 remaningToDistribute = _totalQuantityBeingClaimed;
 
-        for (uint256 i = 0; i < _tiers.length; i += 1) {
+        for (uint256 i = 0; i < _tiers.length; ) {
             string memory tier = _tiers[i];
 
             uint256 qtyFulfilled = _getQuantityFulfilledByTier(tier, remaningToDistribute);
@@ -344,6 +344,7 @@ contract TieredDrop is
             } else {
                 break;
             }
+            unchecked { ++i; }
         }
 
         require(remaningToDistribute == 0, "Insufficient tokens in tiers.");
@@ -365,7 +366,7 @@ contract TieredDrop is
 
         uint256 qtyRemaining = _quantity;
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             TokenRange memory range = tokensInTier[i];
             uint256 gap = 0;
 
@@ -401,6 +402,7 @@ contract TieredDrop is
                 nextMetadataIdToMapFromTier[_tier] = nextIdFromTier;
                 break;
             }
+            unchecked { ++i; }
         }
     }
 
@@ -423,12 +425,13 @@ contract TieredDrop is
     function getTierForToken(uint256 _tokenId) external view returns (string memory) {
         uint256 len = lengthEndIdsAtMint;
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             uint256 endId = endIdsAtMint[i];
 
             if (_tokenId < endId) {
                 return tierAtEndId[endId];
             }
+            unchecked { ++i; }
         }
 
         revert("!Tier");
@@ -452,18 +455,19 @@ contract TieredDrop is
         uint256 numOfRangesForTier = 0;
         bytes32 hashOfTier = keccak256(abi.encodePacked(_tier));
 
-        for (uint256 i = _startIdx; i < _endIdx; i += 1) {
+        for (uint256 i = _startIdx; i < _endIdx; ) {
             bytes32 hashOfStoredTier = keccak256(abi.encodePacked(tierAtEndId[endIdsAtMint[i]]));
 
             if (hashOfStoredTier == hashOfTier) {
                 numOfRangesForTier += 1;
             }
+            unchecked { ++i; }
         }
 
         ranges = new TokenRange[](numOfRangesForTier);
         uint256 idx = 0;
 
-        for (uint256 i = _startIdx; i < _endIdx; i += 1) {
+        for (uint256 i = _startIdx; i < _endIdx; ) {
             bytes32 hashOfStoredTier = keccak256(abi.encodePacked(tierAtEndId[endIdsAtMint[i]]));
 
             if (hashOfStoredTier == hashOfTier) {
@@ -477,6 +481,7 @@ contract TieredDrop is
                 ranges[idx] = TokenRange(start, end);
                 idx += 1;
             }
+            unchecked { ++i; }
         }
     }
 
@@ -484,7 +489,7 @@ contract TieredDrop is
     function _getMetadataId(uint256 _tokenId) private view returns (uint256) {
         uint256 len = lengthEndIdsAtMint;
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             if (_tokenId < endIdsAtMint[i]) {
                 uint256 targetEndId = endIdsAtMint[i];
                 uint256 diff = targetEndId - _tokenId;
@@ -493,6 +498,7 @@ contract TieredDrop is
 
                 return range.endIdNonInclusive - diff;
             }
+            unchecked { ++i; }
         }
 
         revert("!Metadata-ID");

@@ -167,8 +167,9 @@ contract OffersLogic is IOffers, ReentrancyGuardLogic, ERC2771ContextConsumer {
 
         _allOffers = new Offer[](_endId - _startId + 1);
 
-        for (uint256 i = _startId; i <= _endId; i += 1) {
+        for (uint256 i = _startId; i <= _endId; ) {
             _allOffers[i - _startId] = data.offers[i];
+            unchecked { ++i; }
         }
     }
 
@@ -180,21 +181,23 @@ contract OffersLogic is IOffers, ReentrancyGuardLogic, ERC2771ContextConsumer {
         Offer[] memory _offers = new Offer[](_endId - _startId + 1);
         uint256 _offerCount;
 
-        for (uint256 i = _startId; i <= _endId; i += 1) {
+        for (uint256 i = _startId; i <= _endId; ) {
             uint256 j = i - _startId;
             _offers[j] = data.offers[i];
             if (_validateExistingOffer(_offers[j])) {
                 _offerCount += 1;
             }
+            unchecked { ++i; }
         }
 
         _validOffers = new Offer[](_offerCount);
         uint256 index = 0;
         uint256 count = _offers.length;
-        for (uint256 i = 0; i < count; i += 1) {
+        for (uint256 i = 0; i < count; ) {
             if (_validateExistingOffer(_offers[i])) {
                 _validOffers[index++] = _offers[i];
             }
+            unchecked { ++i; }
         }
     }
 

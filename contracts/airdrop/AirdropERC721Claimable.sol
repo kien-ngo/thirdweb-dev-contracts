@@ -188,9 +188,10 @@ contract AirdropERC721Claimable is
         address _tokenAddress = airdropTokenAddress;
         address _tokenOwner = tokenOwner;
 
-        for (uint256 i = 0; i < _quantityBeingClaimed; i += 1) {
+        for (uint256 i = 0; i < _quantityBeingClaimed; ) {
             IERC721(_tokenAddress).safeTransferFrom(_tokenOwner, _to, _tokenIds[index]);
             index += 1;
+            unchecked { ++i; }
         }
         nextIndex = index;
     }

@@ -216,12 +216,13 @@ abstract contract Staking20 is ReentrancyGuard, IStaking20 {
 
         if (_amountStaked == _amount) {
             address[] memory _stakersArray = stakersArray;
-            for (uint256 i = 0; i < _stakersArray.length; ++i) {
+            for (uint256 i = 0; i < _stakersArray.length; ) {
                 if (_stakersArray[i] == _stakeMsgSender()) {
                     stakersArray[i] = _stakersArray[_stakersArray.length - 1];
                     stakersArray.pop();
                     break;
                 }
+                unchecked { ++i; }
             }
         }
         stakers[_stakeMsgSender()].amountStaked -= _amount;
@@ -301,7 +302,7 @@ abstract contract Staking20 is ReentrancyGuard, IStaking20 {
         uint256 _stakerConditionId = staker.conditionIdOflastUpdate;
         uint256 _nextConditionId = nextConditionId;
 
-        for (uint256 i = _stakerConditionId; i < _nextConditionId; i += 1) {
+        for (uint256 i = _stakerConditionId; i < _nextConditionId; ) {
             StakingCondition memory condition = stakingConditions[i];
 
             uint256 startTime = i != _stakerConditionId ? condition.startTimestamp : staker.timeOfLastUpdate;
@@ -317,6 +318,7 @@ abstract contract Staking20 is ReentrancyGuard, IStaking20 {
             );
 
             _rewards = noOverflowProduct && noOverflowSum ? rewardsSum : _rewards;
+            unchecked { ++i; }
         }
 
         (, _rewards) = SafeMath.tryMul(_rewards, 10**rewardTokenDecimals);

@@ -97,12 +97,13 @@ contract EvolvingNFTLogic is
         bytes32[] memory ids = _sharedMetadataBatchStorage().ids.values();
         bytes32 targetId = 0;
 
-        for (uint256 i = 0; i < ids.length; i += 1) {
+        for (uint256 i = 0; i < ids.length; ) {
             if (uint256(ids[i]) <= score) {
                 targetId = ids[i];
             } else {
                 break;
             }
+            unchecked { ++i; }
         }
         return _getURIFromSharedMetadata(targetId, _tokenId);
     }

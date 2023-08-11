@@ -154,14 +154,16 @@ contract ERC1155PresetUpgradeable is
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 _totalSupply[ids[i]] += amounts[i];
+                unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 _totalSupply[ids[i]] -= amounts[i];
+                unchecked { ++i; }
             }
         }
     }

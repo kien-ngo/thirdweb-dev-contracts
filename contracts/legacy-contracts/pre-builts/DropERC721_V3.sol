@@ -192,7 +192,7 @@ contract DropERC721_V3 is
 
     /// @dev Returns the URI for a given tokenId.
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        for (uint256 i = 0; i < baseURIIndices.length; i += 1) {
+        for (uint256 i = 0; i < baseURIIndices.length; ) {
             if (_tokenId < baseURIIndices[i]) {
                 if (encryptedData[baseURIIndices[i]].length != 0) {
                     return string(abi.encodePacked(baseURI[baseURIIndices[i]], "0"));
@@ -200,6 +200,7 @@ contract DropERC721_V3 is
                     return string(abi.encodePacked(baseURI[baseURIIndices[i]], _tokenId.toString()));
                 }
             }
+            unchecked { ++i; }
         }
 
         return "";
@@ -301,7 +302,7 @@ contract DropERC721_V3 is
         }
 
         // Iterate over the data stepping by 32 bytes
-        for (uint256 i = 0; i < length; i += 32) {
+        for (uint256 i = 0; i < length; ) {
             // Generate hash of the key and offset
             bytes32 hash = keccak256(abi.encodePacked(key, i));
 
@@ -318,6 +319,7 @@ contract DropERC721_V3 is
                 // Write 32-byte encrypted chunk
                 mstore(add(result, add(i, 32)), chunk)
             }
+            unchecked { i += 32; }
         }
     }
 
@@ -413,7 +415,7 @@ contract DropERC721_V3 is
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _phases.length; i++) {
+        for (uint256 i = 0; i < _phases.length; ) {
             require(i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp, "ST");
 
             uint256 supplyClaimedAlready = claimCondition.phases[newStartIndex + i].supplyClaimed;
@@ -423,6 +425,7 @@ contract DropERC721_V3 is
             claimCondition.phases[newStartIndex + i].supplyClaimed = supplyClaimedAlready;
 
             lastConditionStartTimestamp = _phases[i].startTimestamp;
+            unchecked { ++i; }
         }
 
         /**
@@ -436,15 +439,17 @@ contract DropERC721_V3 is
          *  by the conditions in `_phases`.
          */
         if (_resetClaimEligibility) {
-            for (uint256 i = existingStartIndex; i < newStartIndex; i++) {
+            for (uint256 i = existingStartIndex; i < newStartIndex; ) {
                 delete claimCondition.phases[i];
                 delete claimCondition.limitMerkleProofClaim[i];
+                unchecked { ++i; }
             }
         } else {
             if (existingPhaseCount > _phases.length) {
-                for (uint256 i = _phases.length; i < existingPhaseCount; i++) {
+                for (uint256 i = _phases.length; i < existingPhaseCount; ) {
                     delete claimCondition.phases[newStartIndex + i];
                     delete claimCondition.limitMerkleProofClaim[newStartIndex + i];
+                    unchecked { ++i; }
                 }
             }
         }
@@ -489,9 +494,10 @@ contract DropERC721_V3 is
 
         uint256 tokenIdToClaim = nextTokenIdToClaim;
 
-        for (uint256 i = 0; i < _quantityBeingClaimed; i += 1) {
+        for (uint256 i = 0; i < _quantityBeingClaimed; ) {
             _mint(_to, tokenIdToClaim);
             tokenIdToClaim += 1;
+            unchecked { ++i; }
         }
 
         nextTokenIdToClaim = tokenIdToClaim;
@@ -568,10 +574,11 @@ contract DropERC721_V3 is
 
     /// @dev At any given moment, returns the uid for the active claim condition.
     function getActiveClaimConditionId() public view returns (uint256) {
-        for (uint256 i = claimCondition.currentStartId + claimCondition.count; i > claimCondition.currentStartId; i--) {
+        for (uint256 i = claimCondition.currentStartId + claimCondition.count; i > claimCondition.currentStartId; ) {
             if (block.timestamp >= claimCondition.phases[i - 1].startTimestamp) {
                 return i - 1;
             }
+            unchecked { --i; }
         }
 
         revert("!CONDITION.");

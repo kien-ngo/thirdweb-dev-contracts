@@ -140,25 +140,28 @@ abstract contract Router is Multicall, ERC165, IRouter {
         uint256 len = defaultSelectors.length;
         uint256 count = selectorsForPlugin.length() + defaultSelectors.length;
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             if (selectorsForPlugin.contains(defaultSelectors[i])) {
                 count -= 1;
                 defaultSelectors[i] = bytes4(0);
             }
+            unchecked { ++i; }
         }
 
         registered = new bytes4[](count);
         uint256 index;
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             if (defaultSelectors[i] != bytes4(0)) {
                 registered[index++] = defaultSelectors[i];
             }
+            unchecked { ++i; }
         }
 
         len = selectorsForPlugin.length();
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             registered[index++] = bytes4(data.selectorsForPlugin[_pluginAddress].at(i));
+            unchecked { ++i; }
         }
     }
 
@@ -174,28 +177,32 @@ abstract contract Router is Multicall, ERC165, IRouter {
 
         uint256 totalCount = overrideSelectorsLen + defaultPluginsLen;
 
-        for (uint256 i = 0; i < overrideSelectorsLen; i += 1) {
-            for (uint256 j = 0; j < defaultPluginsLen; j += 1) {
+        for (uint256 i = 0; i < overrideSelectorsLen; ) {
+            for (uint256 j = 0; j < defaultPluginsLen; ) {
                 if (bytes4(overrideSelectors.at(i)) == defaultPlugins[j].functionSelector) {
                     totalCount -= 1;
                     defaultPlugins[j].functionSelector = bytes4(0);
                 }
+                unchecked { ++j; }
             }
+            unchecked { ++i; }
         }
 
         registered = new Plugin[](totalCount);
         uint256 index;
 
-        for (uint256 i = 0; i < defaultPluginsLen; i += 1) {
+        for (uint256 i = 0; i < defaultPluginsLen; ) {
             if (defaultPlugins[i].functionSelector != bytes4(0)) {
                 registered[index] = defaultPlugins[i];
                 index += 1;
             }
+            unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < overrideSelectorsLen; i += 1) {
+        for (uint256 i = 0; i < overrideSelectorsLen; ) {
             registered[index] = data.pluginForSelector[bytes4(overrideSelectors.at(i))];
             index += 1;
+            unchecked { ++i; }
         }
     }
 

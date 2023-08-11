@@ -138,8 +138,9 @@ contract PackVRFDirect is
          */
         address[] memory forwarders = new address[](_trustedForwarders.length + 1);
         uint256 i;
-        for (; i < _trustedForwarders.length; i++) {
+        for (; i < _trustedForwarders.length; ) {
             forwarders[i] = _trustedForwarders[i];
+            unchecked { ++i; }
         }
         forwarders[i] = forwarder;
         __ERC2771Context_init(forwarders);
@@ -358,7 +359,7 @@ contract PackVRFDirect is
     ) internal returns (uint256 supplyToMint) {
         uint256 sumOfRewardUnits;
 
-        for (uint256 i = 0; i < _contents.length; i += 1) {
+        for (uint256 i = 0; i < _contents.length; ) {
             require(_contents[i].totalAmount != 0, "0 amt");
             require(_contents[i].totalAmount % _numOfRewardUnits[i] == 0, "!R");
             require(_contents[i].tokenType != TokenType.ERC721 || _contents[i].totalAmount == 1, "!R");
@@ -366,14 +367,16 @@ contract PackVRFDirect is
             sumOfRewardUnits += _numOfRewardUnits[i];
 
             packInfo[packId].perUnitAmounts.push(_contents[i].totalAmount / _numOfRewardUnits[i]);
+            unchecked { ++i; }
         }
 
         require(sumOfRewardUnits % amountPerOpen == 0, "!Amt");
         supplyToMint = sumOfRewardUnits / amountPerOpen;
 
         if (isUpdate) {
-            for (uint256 i = 0; i < _contents.length; i += 1) {
+            for (uint256 i = 0; i < _contents.length; ) {
                 _addTokenInBundle(_contents[i], packId);
+                unchecked { ++i; }
             }
             _transferTokenBatch(_msgSender(), address(this), _contents);
         } else {
@@ -396,12 +399,12 @@ contract PackVRFDirect is
 
         (Token[] memory _token, ) = getPackContents(_packId);
         bool[] memory _isUpdated = new bool[](totalRewardKinds);
-        for (uint256 i = 0; i < numOfRewardUnitsToDistribute; i += 1) {
+        for (uint256 i = 0; i < numOfRewardUnitsToDistribute; ) {
             uint256 randomVal = uint256(keccak256(abi.encode(_random, i)));
             uint256 target = randomVal % totalRewardUnits;
             uint256 step;
 
-            for (uint256 j = 0; j < totalRewardKinds; j += 1) {
+            for (uint256 j = 0; j < totalRewardKinds; ) {
                 uint256 totalRewardUnitsOfKind = _token[j].totalAmount / pack.perUnitAmounts[j];
 
                 if (target < step + totalRewardUnitsOfKind) {
@@ -419,13 +422,16 @@ contract PackVRFDirect is
                 } else {
                     step += totalRewardUnitsOfKind;
                 }
+                unchecked { ++j; }
             }
+            unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < totalRewardKinds; i += 1) {
+        for (uint256 i = 0; i < totalRewardKinds; ) {
             if (_isUpdated[i]) {
                 _updateTokenInBundle(_token[i], _packId, i);
             }
+            unchecked { ++i; }
         }
     }
 
@@ -444,8 +450,9 @@ contract PackVRFDirect is
         contents = new Token[](total);
         perUnitAmounts = new uint256[](total);
 
-        for (uint256 i = 0; i < total; i += 1) {
+        for (uint256 i = 0; i < total; ) {
             contents[i] = getTokenOfBundle(_packId, i);
+            unchecked { ++i; }
         }
         perUnitAmounts = pack.perUnitAmounts;
     }
@@ -487,14 +494,16 @@ contract PackVRFDirect is
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
+                unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ++i) {
+            for (uint256 i = 0; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
+                unchecked { ++i; }
             }
         }
     }

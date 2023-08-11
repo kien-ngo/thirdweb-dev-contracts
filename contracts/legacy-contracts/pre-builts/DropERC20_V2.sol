@@ -260,7 +260,7 @@ contract DropERC20_V2 is
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _phases.length; i++) {
+        for (uint256 i = 0; i < _phases.length; ) {
             require(
                 i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp,
                 "startTimestamp must be in ascending order."
@@ -273,6 +273,7 @@ contract DropERC20_V2 is
             claimCondition.phases[newStartIndex + i].supplyClaimed = supplyClaimedAlready;
 
             lastConditionStartTimestamp = _phases[i].startTimestamp;
+            unchecked { ++i; }
         }
 
         /**
@@ -286,15 +287,17 @@ contract DropERC20_V2 is
          *  by the conditions in `_phases`.
          */
         if (_resetClaimEligibility) {
-            for (uint256 i = existingStartIndex; i < newStartIndex; i++) {
+            for (uint256 i = existingStartIndex; i < newStartIndex; ) {
                 delete claimCondition.phases[i];
                 delete claimCondition.limitMerkleProofClaim[i];
+                unchecked { ++i; }
             }
         } else {
             if (existingPhaseCount > _phases.length) {
-                for (uint256 i = _phases.length; i < existingPhaseCount; i++) {
+                for (uint256 i = _phases.length; i < existingPhaseCount; ) {
                     delete claimCondition.phases[newStartIndex + i];
                     delete claimCondition.limitMerkleProofClaim[newStartIndex + i];
+                    unchecked { ++i; }
                 }
             }
         }
@@ -415,10 +418,11 @@ contract DropERC20_V2 is
 
     /// @dev At any given moment, returns the uid for the active claim condition.
     function getActiveClaimConditionId() public view returns (uint256) {
-        for (uint256 i = claimCondition.currentStartId + claimCondition.count; i > claimCondition.currentStartId; i--) {
+        for (uint256 i = claimCondition.currentStartId + claimCondition.count; i > claimCondition.currentStartId; ) {
             if (block.timestamp >= claimCondition.phases[i - 1].startTimestamp) {
                 return i - 1;
             }
+            unchecked { --i; }
         }
 
         revert("no active mint condition.");

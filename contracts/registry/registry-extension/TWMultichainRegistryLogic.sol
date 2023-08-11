@@ -85,29 +85,32 @@ contract TWMultichainRegistryLogic is ITWMultichainRegistry, ERC2771ContextConsu
         uint256 totalDeployments;
         uint256 chainIdsLen = data.chainIds.length();
 
-        for (uint256 i = 0; i < chainIdsLen; i += 1) {
+        for (uint256 i = 0; i < chainIdsLen; ) {
             uint256 chainId = data.chainIds.at(i);
 
             totalDeployments += data.deployments[_deployer][chainId].length();
+            unchecked { ++i; }
         }
 
         allDeployments = new Deployment[](totalDeployments);
         uint256 idx;
 
-        for (uint256 j = 0; j < chainIdsLen; j += 1) {
+        for (uint256 j = 0; j < chainIdsLen; ) {
             uint256 chainId = data.chainIds.at(j);
 
             uint256 len = data.deployments[_deployer][chainId].length();
             address[] memory deploymentAddrs = data.deployments[_deployer][chainId].values();
 
-            for (uint256 k = 0; k < len; k += 1) {
+            for (uint256 k = 0; k < len; ) {
                 allDeployments[idx] = Deployment({
                     deploymentAddress: deploymentAddrs[k],
                     chainId: chainId,
                     metadataURI: data.addressToMetadataUri[chainId][deploymentAddrs[k]]
                 });
                 idx += 1;
+                unchecked { ++k; }
             }
+            unchecked { ++j; }
         }
     }
 
@@ -115,10 +118,11 @@ contract TWMultichainRegistryLogic is ITWMultichainRegistry, ERC2771ContextConsu
         TWMultichainRegistryStorage.Data storage data = TWMultichainRegistryStorage.multichainRegistryStorage();
         uint256 chainIdsLen = data.chainIds.length();
 
-        for (uint256 i = 0; i < chainIdsLen; i += 1) {
+        for (uint256 i = 0; i < chainIdsLen; ) {
             uint256 chainId = data.chainIds.at(i);
 
             deploymentCount += data.deployments[_deployer][chainId].length();
+            unchecked { ++i; }
         }
     }
 

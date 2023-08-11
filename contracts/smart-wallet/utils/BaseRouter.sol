@@ -72,8 +72,9 @@ abstract contract BaseRouter is IBaseRouter, Router, ExtensionState {
 
         allExtensions = new Extension[](len);
 
-        for (uint256 i = 0; i < len; i += 1) {
+        for (uint256 i = 0; i < len; ) {
             allExtensions[i] = data.extensions[names[i]];
+            unchecked { ++i; }
         }
     }
 

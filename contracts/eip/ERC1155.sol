@@ -58,8 +58,9 @@ contract ERC1155 is IERC1155, IERC1155Metadata {
 
         uint256[] memory batchBalances = new uint256[](accounts.length);
 
-        for (uint256 i = 0; i < accounts.length; ++i) {
+        for (uint256 i = 0; i < accounts.length; ) {
             batchBalances[i] = balanceOf[accounts[i]][ids[i]];
+            unchecked { ++i; }
         }
 
         return batchBalances;
@@ -141,7 +142,7 @@ contract ERC1155 is IERC1155, IERC1155Metadata {
 
         _beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
-        for (uint256 i = 0; i < ids.length; ++i) {
+        for (uint256 i = 0; i < ids.length; ) {
             uint256 id = ids[i];
             uint256 amount = amounts[i];
 
@@ -151,6 +152,7 @@ contract ERC1155 is IERC1155, IERC1155Metadata {
                 balanceOf[from][id] = fromBalance - amount;
             }
             balanceOf[to][id] += amount;
+            unchecked { ++i; }
         }
 
         emit TransferBatch(operator, from, to, ids, amounts);
@@ -193,8 +195,9 @@ contract ERC1155 is IERC1155, IERC1155Metadata {
 
         _beforeTokenTransfer(operator, address(0), to, ids, amounts, data);
 
-        for (uint256 i = 0; i < ids.length; i++) {
+        for (uint256 i = 0; i < ids.length; ) {
             balanceOf[to][ids[i]] += amounts[i];
+            unchecked { ++i; }
         }
 
         emit TransferBatch(operator, address(0), to, ids, amounts);
@@ -234,7 +237,7 @@ contract ERC1155 is IERC1155, IERC1155Metadata {
 
         _beforeTokenTransfer(operator, from, address(0), ids, amounts, "");
 
-        for (uint256 i = 0; i < ids.length; i++) {
+        for (uint256 i = 0; i < ids.length; ) {
             uint256 id = ids[i];
             uint256 amount = amounts[i];
 
@@ -243,6 +246,7 @@ contract ERC1155 is IERC1155, IERC1155Metadata {
             unchecked {
                 balanceOf[from][id] = fromBalance - amount;
             }
+            unchecked { ++i; }
         }
 
         emit TransferBatch(operator, from, address(0), ids, amounts);

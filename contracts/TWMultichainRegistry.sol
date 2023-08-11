@@ -75,39 +75,43 @@ contract TWMultichainRegistry is ITWMultichainRegistry, Multicall, ERC2771Contex
         uint256 totalDeployments;
         uint256 chainIdsLen = chainIds.length();
 
-        for (uint256 i = 0; i < chainIdsLen; i += 1) {
+        for (uint256 i = 0; i < chainIdsLen; ) {
             uint256 chainId = chainIds.at(i);
 
             totalDeployments += deployments[_deployer][chainId].length();
+            unchecked { ++i; }
         }
 
         allDeployments = new Deployment[](totalDeployments);
         uint256 idx;
 
-        for (uint256 j = 0; j < chainIdsLen; j += 1) {
+        for (uint256 j = 0; j < chainIdsLen; ) {
             uint256 chainId = chainIds.at(j);
 
             uint256 len = deployments[_deployer][chainId].length();
             address[] memory deploymentAddrs = deployments[_deployer][chainId].values();
 
-            for (uint256 k = 0; k < len; k += 1) {
+            for (uint256 k = 0; k < len; ) {
                 allDeployments[idx] = Deployment({
                     deploymentAddress: deploymentAddrs[k],
                     chainId: chainId,
                     metadataURI: addressToMetadataUri[chainId][deploymentAddrs[k]]
                 });
                 idx += 1;
+                unchecked { ++k; }
             }
+            unchecked { ++j; }
         }
     }
 
     function count(address _deployer) external view returns (uint256 deploymentCount) {
         uint256 chainIdsLen = chainIds.length();
 
-        for (uint256 i = 0; i < chainIdsLen; i += 1) {
+        for (uint256 i = 0; i < chainIdsLen; ) {
             uint256 chainId = chainIds.at(i);
 
             deploymentCount += deployments[_deployer][chainId].length();
+            unchecked { ++i; }
         }
     }
 
