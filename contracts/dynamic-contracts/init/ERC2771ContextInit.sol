@@ -11,8 +11,8 @@ contract ERC2771ContextInit is Initializable {
 
     function __ERC2771Context_init_unchained(address[] memory trustedForwarder) internal onlyInitializing {
         ERC2771ContextStorage.Data storage data = ERC2771ContextStorage.erc2771ContextStorage();
-
-        for (uint256 i; i < trustedForwarder.length; ) {
+        uint256 length = trustedForwarder.length;
+        for (uint256 i; i < length; ) {
             data.trustedForwarder[trustedForwarder[i]] = true;
             unchecked { ++i; }
         }

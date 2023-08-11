@@ -137,9 +137,10 @@ contract ERC1155Drop is
         address caller = msg.sender;
 
         require(caller == _owner || isApprovedForAll[_owner][caller], "Unapproved caller");
-        require(_tokenIds.length == _amounts.length, "Length mismatch");
+        uint256 length = _tokenIds.length;
+        require(length == _amounts.length, "Length mismatch");
 
-        for (uint256 i; i < _tokenIds.length; ) {
+        for (uint256 i; i < length; ) {
             require(balanceOf[_owner][_tokenIds[i]] >= _amounts[i], "Not enough tokens owned");
             unchecked { ++i; }
         }
@@ -324,16 +325,16 @@ contract ERC1155Drop is
         bytes memory data
     ) internal virtual override {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
-
+        uint256 length = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < length; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < length; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

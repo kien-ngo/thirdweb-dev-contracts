@@ -97,15 +97,15 @@ contract AirdropERC1155Claimable is
         airdropTokenAddress = _airdropTokenAddress;
         tokenIds = _tokenIds;
         expirationTimestamp = _expirationTimestamp;
-
+        uint256 length = _tokenIds.length;
         require(
-            _maxWalletClaimCount.length == _tokenIds.length &&
-                _merkleRoot.length == _tokenIds.length &&
-                _availableAmounts.length == _tokenIds.length,
+            _maxWalletClaimCount.length == length &&
+                _merkleRoot.length == length &&
+                _availableAmounts.length == length,
             "length mismatch."
         );
-
-        for (uint256 i = 0; i < _tokenIds.length; ) {
+        
+        for (uint256 i = 0; i < length; ) {
             merkleRoot[_tokenIds[i]] = _merkleRoot[i];
             maxWalletClaimCount[_tokenIds[i]] = _maxWalletClaimCount[i];
             availableAmount[_tokenIds[i]] = _availableAmounts[i];

@@ -72,12 +72,12 @@ abstract contract Drop is IDrop {
         if (_resetClaimEligibility) {
             newStartIndex = existingStartIndex + existingPhaseCount;
         }
-
-        claimCondition.count = _conditions.length;
+        uint256 conditionsLength = _conditions.length;
+        claimCondition.count = conditionsLength;
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i; i < _conditions.length; ) {
+        for (uint256 i; i < conditionsLength; ) {
             require(i == 0 || lastConditionStartTimestamp < _conditions[i].startTimestamp, "ST");
 
             uint256 supplyClaimedAlready = claimCondition.conditions[newStartIndex + i].supplyClaimed;
@@ -108,8 +108,8 @@ abstract contract Drop is IDrop {
                 unchecked { ++i; }
             }
         } else {
-            if (existingPhaseCount > _conditions.length) {
-                for (uint256 i = _conditions.length; i < existingPhaseCount; ) {
+            if (existingPhaseCount > conditionsLength) {
+                for (uint256 i = conditionsLength; i < existingPhaseCount; ) {
                     delete claimCondition.conditions[newStartIndex + i];
                     unchecked { ++i; }
                 }

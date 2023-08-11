@@ -18,7 +18,8 @@ abstract contract ERC2771ContextUpgradeable is Initializable, ContextUpgradeable
     }
 
     function __ERC2771Context_init_unchained(address[] memory trustedForwarder) internal onlyInitializing {
-        for (uint256 i; i < trustedForwarder.length; ) {
+        uint256 length = trustedForwarder.length;
+        for (uint256 i; i < length; ) {
             _trustedForwarder[trustedForwarder[i]] = true;
             unchecked { ++i; }
         }

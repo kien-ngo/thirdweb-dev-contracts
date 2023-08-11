@@ -49,9 +49,10 @@ abstract contract SharedMetadataBatch is ISharedMetadataBatch {
     /// @notice Get all shared metadata
     function getAllSharedMetadata() external view returns (SharedMetadataWithId[] memory metadata) {
         bytes32[] memory ids = _sharedMetadataBatchStorage().ids.values();
-        metadata = new SharedMetadataWithId[](ids.length);
+        uint256 idsLength = ids.length;
+        metadata = new SharedMetadataWithId[](idsLength);
 
-        for (uint256 i; i < ids.length; ) {
+        for (uint256 i; i < idsLength; ) {
             metadata[i] = _sharedMetadataBatchStorage().metadata[ids[i]];
             unchecked { ++i; }
         }

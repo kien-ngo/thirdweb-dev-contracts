@@ -20,8 +20,9 @@ contract Multicall is IMulticall {
      *  @return results The bytes data that makes up the result of the batch of function calls executed.
      */
     function multicall(bytes[] calldata data) external virtual override returns (bytes[] memory results) {
-        results = new bytes[](data.length);
-        for (uint256 i; i < data.length; ) {
+        uint256 dataLength = data.length;
+        results = new bytes[](dataLength);
+        for (uint256 i; i < dataLength; ) {
             results[i] = TWAddress.functionDelegateCall(address(this), data[i]);
             unchecked { ++i; }
         }

@@ -116,9 +116,10 @@ contract Pack is
          *
          *         Use other forwarders only if there's a strong reason to bypass this check.
          */
-        address[] memory forwarders = new address[](_trustedForwarders.length + 1);
+        uint256 length = _trustedForwarders.length;
+        address[] memory forwarders = new address[](length + 1);
         uint256 i;
-        for (; i < _trustedForwarders.length; ) {
+        for (; i < length; ) {
             forwarders[i] = _trustedForwarders[i];
             unchecked { ++i; }
         }
@@ -211,10 +212,11 @@ contract Pack is
         uint128 _amountDistributedPerOpen,
         address _recipient
     ) external payable onlyRoleWithSwitch(minterRole) nonReentrant returns (uint256 packId, uint256 packTotalSupply) {
-        require(_contents.length > 0 && _contents.length == _numOfRewardUnits.length, "!Len");
+        uint256 contentLength = _contents.length;
+        require(contentLength > 0 && contentLength == _numOfRewardUnits.length, "!Len");
 
         if (!hasRole(assetRole, address(0))) {
-            for (uint256 i; i < _contents.length; ) {
+            for (uint256 i; i < contentLength; ) {
                 _checkRole(assetRole, _contents[i].assetContract);
                 unchecked { ++i; }
             }
@@ -260,7 +262,8 @@ contract Pack is
         require(balanceOf(_recipient, _packId) != 0, "!Bal");
 
         if (!hasRole(assetRole, address(0))) {
-            for (uint256 i; i < _contents.length; ) {
+            uint256 contentLength = _contents.length;
+            for (uint256 i; i < contentLength; ) {
                 _checkRole(assetRole, _contents[i].assetContract);
                 unchecked { ++i; }
             }
@@ -307,8 +310,8 @@ contract Pack is
         bool isUpdate
     ) internal returns (uint256 supplyToMint) {
         uint256 sumOfRewardUnits;
-
-        for (uint256 i; i < _contents.length; ) {
+        uint256 contentLength = _contents.length;
+        for (uint256 i; i < contentLength; ) {
             require(_contents[i].totalAmount != 0, "0 amt");
             require(_contents[i].totalAmount % _numOfRewardUnits[i] == 0, "!R");
             require(_contents[i].tokenType != TokenType.ERC721 || _contents[i].totalAmount == 1, "!R");
@@ -323,7 +326,7 @@ contract Pack is
         supplyToMint = sumOfRewardUnits / amountPerOpen;
 
         if (isUpdate) {
-            for (uint256 i; i < _contents.length; ) {
+            for (uint256 i; i < contentLength; ) {
                 _addTokenInBundle(_contents[i], packId);
                 unchecked { ++i; }
             }
@@ -451,14 +454,14 @@ contract Pack is
         if (!hasRole(transferRole, address(0)) && from != address(0) && to != address(0)) {
             require(hasRole(transferRole, from) || hasRole(transferRole, to), "!TRANSFER_ROLE");
         }
-
+        uint256 idsLength = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         } else {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 // pack can no longer be updated after first transfer to non-zero address
                 if (canUpdatePack[ids[i]] && amounts[i] != 0) {
                     canUpdatePack[ids[i]] = false;
@@ -468,7 +471,7 @@ contract Pack is
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

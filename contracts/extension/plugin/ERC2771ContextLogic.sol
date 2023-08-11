@@ -11,8 +11,8 @@ import "./ERC2771ContextStorage.sol";
 abstract contract ERC2771ContextLogic {
     constructor(address[] memory trustedForwarder) {
         ERC2771ContextStorage.Data storage data = ERC2771ContextStorage.erc2771ContextStorage();
-
-        for (uint256 i; i < trustedForwarder.length; ) {
+        uint256 length = trustedForwarder.length;
+        for (uint256 i; i < length; ) {
             data._trustedForwarder[trustedForwarder[i]] = true;
             unchecked { ++i; }
         }

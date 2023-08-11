@@ -28,8 +28,8 @@ library MerkleProof {
     ) internal pure returns (bool, uint256) {
         bytes32 computedHash = leaf;
         uint256 index;
-
-        for (uint256 i; i < proof.length; ) {
+        uint256 length = proof.length;
+        for (uint256 i; i < length; ) {
             index *= 2;
             bytes32 proofElement = proof[i];
 

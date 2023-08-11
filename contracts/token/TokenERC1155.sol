@@ -512,16 +512,16 @@ contract TokenERC1155 is
         if (!hasRole(TRANSFER_ROLE, address(0)) && from != address(0) && to != address(0)) {
             require(hasRole(TRANSFER_ROLE, from) || hasRole(TRANSFER_ROLE, to), "restricted to TRANSFER_ROLE holders.");
         }
-
+        uint256 idsLength = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

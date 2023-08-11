@@ -222,9 +222,10 @@ abstract contract Staking721Upgradeable is ReentrancyGuardUpgradeable, IStaking7
 
         if (_amountStaked == len) {
             address[] memory _stakersArray = stakersArray;
-            for (uint256 i; i < _stakersArray.length; ) {
+            uint256 stakerLength = _stakersArray.length;
+            for (uint256 i; i < stakerLength; ) {
                 if (_stakersArray[i] == _stakeMsgSender()) {
-                    stakersArray[i] = _stakersArray[_stakersArray.length - 1];
+                    stakersArray[i] = _stakersArray[stakerLength - 1];
                     stakersArray.pop();
                     break;
                 }

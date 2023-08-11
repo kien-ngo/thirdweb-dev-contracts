@@ -322,8 +322,8 @@ contract TieredDrop is
 
         uint256 startIdToMap = startTokenIdToMint;
         uint256 remaningToDistribute = _totalQuantityBeingClaimed;
-
-        for (uint256 i; i < _tiers.length; ) {
+        uint256 tiersLength = _tiers.length;
+        for (uint256 i; i < tiersLength; ) {
             string memory tier = _tiers[i];
 
             uint256 qtyFulfilled = _getQuantityFulfilledByTier(tier, remaningToDistribute);

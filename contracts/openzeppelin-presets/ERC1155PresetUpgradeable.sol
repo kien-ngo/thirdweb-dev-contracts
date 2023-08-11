@@ -152,16 +152,16 @@ contract ERC1155PresetUpgradeable is
         bytes memory data
     ) internal virtual override(ERC1155Upgradeable, ERC1155PausableUpgradeable) {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
-
+        uint256 idsLength = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 _totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 _totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

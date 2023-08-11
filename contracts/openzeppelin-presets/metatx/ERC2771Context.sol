@@ -12,7 +12,8 @@ abstract contract ERC2771Context is Context {
     mapping(address => bool) private _trustedForwarder;
 
     constructor(address[] memory trustedForwarder) {
-        for (uint256 i; i < trustedForwarder.length; ) {
+        uint256 length = trustedForwarder.length;
+        for (uint256 i; i < length; ) {
             _trustedForwarder[trustedForwarder[i]] = true;
             unchecked { ++i; }
         }

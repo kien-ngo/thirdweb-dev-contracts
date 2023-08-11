@@ -192,7 +192,8 @@ contract DropERC721_V3 is
 
     /// @dev Returns the URI for a given tokenId.
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        for (uint256 i; i < baseURIIndices.length; ) {
+        uint256 length = baseURIIndices.length;
+        for (uint256 i; i < length; ) {
             if (_tokenId < baseURIIndices[i]) {
                 if (encryptedData[baseURIIndices[i]].length != 0) {
                     return string(abi.encodePacked(baseURI[baseURIIndices[i]], "0"));
@@ -410,12 +411,12 @@ contract DropERC721_V3 is
         if (_resetClaimEligibility) {
             newStartIndex = existingStartIndex + existingPhaseCount;
         }
-
-        claimCondition.count = _phases.length;
+        uint256 phaseLength = _phases.length;
+        claimCondition.count = phaseLength;
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i; i < _phases.length; ) {
+        for (uint256 i; i < phaseLength; ) {
             require(i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp, "ST");
 
             uint256 supplyClaimedAlready = claimCondition.phases[newStartIndex + i].supplyClaimed;
@@ -445,8 +446,8 @@ contract DropERC721_V3 is
                 unchecked { ++i; }
             }
         } else {
-            if (existingPhaseCount > _phases.length) {
-                for (uint256 i = _phases.length; i < existingPhaseCount; ) {
+            if (existingPhaseCount > phaseLength) {
+                for (uint256 i = phaseLength; i < existingPhaseCount; ) {
                     delete claimCondition.phases[newStartIndex + i];
                     delete claimCondition.limitMerkleProofClaim[newStartIndex + i];
                     unchecked { ++i; }

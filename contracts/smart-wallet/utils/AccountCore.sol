@@ -116,7 +116,8 @@ contract AccountCore is IAccountCore, Initializable, Multicall, BaseAccount, ERC
             (address[] memory targets, uint256[] memory values, ) = decodeExecuteBatchCalldata(_userOp.callData);
 
             // For each target+value pair, check if the value is within the allowed range and if the target is approved.
-            for (uint256 i; i < targets.length; ) {
+            uint256 targetLength = targets.length;
+            for (uint256 i; i < targetLength; ) {
                 if (
                     permissions.nativeTokenLimitPerTransaction < values[i] ||
                     !data.approvedTargets[_signer].contains(targets[i])

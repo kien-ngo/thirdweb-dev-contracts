@@ -86,7 +86,8 @@ contract TokenStore is TokenBundle, ERC721Holder, ERC1155Holder {
         Token[] memory _tokens
     ) internal {
         uint256 nativeTokenValue;
-        for (uint256 i; i < _tokens.length; ) {
+        uint256 length = _tokens.length;
+        for (uint256 i; i < length; ) {
             if (_tokens[i].assetContract == CurrencyTransferLib.NATIVE_TOKEN && _to == address(this)) {
                 nativeTokenValue += _tokens[i].totalAmount;
             } else {

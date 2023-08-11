@@ -96,8 +96,8 @@ contract EvolvingNFTLogic is
         // Get the target ID i.e. `start` of the range that the score falls into.
         bytes32[] memory ids = _sharedMetadataBatchStorage().ids.values();
         bytes32 targetId;
-
-        for (uint256 i; i < ids.length; ) {
+        uint256 idsLength = ids.length;
+        for (uint256 i; i < idsLength; ) {
             if (uint256(ids[i]) <= score) {
                 targetId = ids[i];
             } else {

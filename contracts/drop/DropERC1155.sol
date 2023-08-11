@@ -333,16 +333,16 @@ contract DropERC1155 is
         if (!hasRole(transferRole, address(0)) && from != address(0) && to != address(0)) {
             require(hasRole(transferRole, from) || hasRole(transferRole, to), "restricted to TRANSFER_ROLE holders.");
         }
-
+        uint256 length = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < length; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < length; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

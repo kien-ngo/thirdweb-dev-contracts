@@ -136,9 +136,10 @@ contract PackVRFDirect is
          *
          *         Use other forwarders only if there's a strong reason to bypass this check.
          */
-        address[] memory forwarders = new address[](_trustedForwarders.length + 1);
+        uint256 length = _trustedForwarders.length;
+        address[] memory forwarders = new address[](length + 1);
         uint256 i;
-        for (; i < _trustedForwarders.length; ) {
+        for (; i < length; ) {
             forwarders[i] = _trustedForwarders[i];
             unchecked { ++i; }
         }
@@ -358,8 +359,8 @@ contract PackVRFDirect is
         bool isUpdate
     ) internal returns (uint256 supplyToMint) {
         uint256 sumOfRewardUnits;
-
-        for (uint256 i; i < _contents.length; ) {
+        uint256 contentLength = _contents.length;
+        for (uint256 i; i < contentLength; ) {
             require(_contents[i].totalAmount != 0, "0 amt");
             require(_contents[i].totalAmount % _numOfRewardUnits[i] == 0, "!R");
             require(_contents[i].tokenType != TokenType.ERC721 || _contents[i].totalAmount == 1, "!R");
@@ -374,7 +375,7 @@ contract PackVRFDirect is
         supplyToMint = sumOfRewardUnits / amountPerOpen;
 
         if (isUpdate) {
-            for (uint256 i; i < _contents.length; ) {
+            for (uint256 i; i < contentLength; ) {
                 _addTokenInBundle(_contents[i], packId);
                 unchecked { ++i; }
             }
@@ -492,16 +493,16 @@ contract PackVRFDirect is
         bytes memory data
     ) internal virtual override {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
-
+        uint256 idsLength = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

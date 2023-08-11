@@ -199,7 +199,8 @@ contract DropERC1155_V2 is
 
     /// @dev Returns the URI for a given tokenId.
     function uri(uint256 _tokenId) public view override returns (string memory _tokenURI) {
-        for (uint256 i; i < baseURIIndices.length; ) {
+        uint256 length = baseURIIndices.length;
+        for (uint256 i; i < length; ) {
             if (_tokenId < baseURIIndices[i]) {
                 return string(abi.encodePacked(baseURI[baseURIIndices[i]], _tokenId.toString()));
             }
@@ -341,12 +342,12 @@ contract DropERC1155_V2 is
         if (_resetClaimEligibility) {
             newStartIndex = existingStartIndex + existingPhaseCount;
         }
-
-        condition.count = _phases.length;
+        uint256 phaseLength = _phases.length;
+        condition.count = phaseLength;
         condition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i; i < _phases.length; ) {
+        for (uint256 i; i < phaseLength; ) {
             require(
                 i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp,
                 "startTimestamp must be in ascending order."
@@ -379,8 +380,8 @@ contract DropERC1155_V2 is
                 unchecked { ++i; }
             }
         } else {
-            if (existingPhaseCount > _phases.length) {
-                for (uint256 i = _phases.length; i < existingPhaseCount; ) {
+            if (existingPhaseCount > phaseLength) {
+                for (uint256 i = phaseLength; i < existingPhaseCount; ) {
                     delete condition.phases[newStartIndex + i];
                     delete condition.limitMerkleProofClaim[newStartIndex + i];
                     unchecked { ++i; }
@@ -709,16 +710,16 @@ contract DropERC1155_V2 is
         if (!hasRole(TRANSFER_ROLE, address(0)) && from != address(0) && to != address(0)) {
             require(hasRole(TRANSFER_ROLE, from) || hasRole(TRANSFER_ROLE, to), "restricted to TRANSFER_ROLE holders.");
         }
-
+        uint256 idsLength = ids.length;
         if (from == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i; i < ids.length; ) {
+            for (uint256 i; i < idsLength; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

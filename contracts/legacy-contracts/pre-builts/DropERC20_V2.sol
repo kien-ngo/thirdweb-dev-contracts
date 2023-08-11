@@ -255,12 +255,12 @@ contract DropERC20_V2 is
         if (_resetClaimEligibility) {
             newStartIndex = existingStartIndex + existingPhaseCount;
         }
-
-        claimCondition.count = _phases.length;
+        uint256 phaseLength = _phases.length;
+        claimCondition.count = phaseLength;
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i; i < _phases.length; ) {
+        for (uint256 i; i < phaseLength; ) {
             require(
                 i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp,
                 "startTimestamp must be in ascending order."
@@ -293,8 +293,8 @@ contract DropERC20_V2 is
                 unchecked { ++i; }
             }
         } else {
-            if (existingPhaseCount > _phases.length) {
-                for (uint256 i = _phases.length; i < existingPhaseCount; ) {
+            if (existingPhaseCount > phaseLength) {
+                for (uint256 i = phaseLength; i < existingPhaseCount; ) {
                     delete claimCondition.phases[newStartIndex + i];
                     delete claimCondition.limitMerkleProofClaim[newStartIndex + i];
                     unchecked { ++i; }
