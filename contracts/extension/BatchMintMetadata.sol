@@ -43,7 +43,7 @@ contract BatchMintMetadata {
         uint256 numOfTokenBatches = getBaseURICount();
         uint256[] memory indices = batchIds;
 
-        for (uint256 i = 0; i < numOfTokenBatches; ) {
+        for (uint256 i; i < numOfTokenBatches; ) {
             if (_tokenId < indices[i]) {
                 index = i;
                 batchId = indices[i];
@@ -61,7 +61,7 @@ contract BatchMintMetadata {
         uint256 numOfTokenBatches = getBaseURICount();
         uint256[] memory indices = batchIds;
 
-        for (uint256 i = 0; i < numOfTokenBatches; ) {
+        for (uint256 i; i < numOfTokenBatches; ) {
             if (_tokenId < indices[i]) {
                 return baseURI[indices[i]];
             }

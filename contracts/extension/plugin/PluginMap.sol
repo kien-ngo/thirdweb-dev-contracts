@@ -23,7 +23,7 @@ contract PluginMap is IPluginMap {
 
     constructor(Plugin[] memory _pluginsToAdd) {
         uint256 len = _pluginsToAdd.length;
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             _setPlugin(_pluginsToAdd[i]);
             unchecked { ++i; }
         }
@@ -46,7 +46,7 @@ contract PluginMap is IPluginMap {
         uint256 len = selectorsForPlugin[_pluginAddress].length();
         registered = new bytes4[](len);
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             registered[i] = bytes4(selectorsForPlugin[_pluginAddress].at(i));
             unchecked { ++i; }
         }
@@ -57,7 +57,7 @@ contract PluginMap is IPluginMap {
         uint256 len = allSelectors.length();
         _plugins = new Plugin[](len);
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             bytes4 selector = bytes4(allSelectors.at(i));
             _plugins[i] = pluginForSelector[selector];
             unchecked { ++i; }

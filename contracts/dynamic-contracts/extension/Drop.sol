@@ -93,7 +93,7 @@ abstract contract Drop is IDrop {
         data.claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _conditions.length; ) {
+        for (uint256 i; i < _conditions.length; ) {
             require(i == 0 || lastConditionStartTimestamp < _conditions[i].startTimestamp, "ST");
 
             uint256 supplyClaimedAlready = data.claimCondition.conditions[newStartIndex + i].supplyClaimed;

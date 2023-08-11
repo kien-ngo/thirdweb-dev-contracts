@@ -101,7 +101,7 @@ contract AirdropERC20 is
         uint256 nativeTokenAmount;
         uint256 refundAmount;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             bool success = _transferCurrencyWithReturnVal(
                 _tokenAddress,
                 _tokenOwner,

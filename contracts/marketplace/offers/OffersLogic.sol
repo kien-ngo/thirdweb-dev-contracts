@@ -193,7 +193,7 @@ contract OffersLogic is IOffers, ReentrancyGuardLogic, ERC2771ContextConsumer {
         _validOffers = new Offer[](_offerCount);
         uint256 index;
         uint256 count = _offers.length;
-        for (uint256 i = 0; i < count; ) {
+        for (uint256 i; i < count; ) {
             if (_validateExistingOffer(_offers[i])) {
                 _validOffers[index++] = _offers[i];
             }
@@ -336,7 +336,7 @@ contract OffersLogic is IOffers, ReentrancyGuardLogic, ERC2771ContextConsumer {
                 uint256 royaltyCut;
                 address royaltyRecipient;
 
-                for (uint256 i = 0; i < royaltyRecipientCount; ) {
+                for (uint256 i; i < royaltyRecipientCount; ) {
                     royaltyRecipient = recipients[i];
                     royaltyCut = amounts[i];
 

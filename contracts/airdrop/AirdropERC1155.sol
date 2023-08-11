@@ -98,7 +98,7 @@ contract AirdropERC1155 is
 
         uint256 len = _contents.length;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             try
                 IERC1155(_tokenAddress).safeTransferFrom{ gas: 80_000 }(
                     _tokenOwner,

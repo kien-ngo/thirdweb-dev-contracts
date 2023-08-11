@@ -39,7 +39,7 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
 
         uint256 len = _extensionNames.length;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             Extension memory extension = IExtensionRegistry(_extensionRegistry).getExtension(_extensionNames[i]);
             map.setExtension(extension);
             unchecked { ++i; }
@@ -92,7 +92,7 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
         uint256 namesLen = names.length;
 
         uint256 overrides;
-        for (uint256 i = 0; i < mapExtensionsLen; ) {
+        for (uint256 i; i < mapExtensionsLen; ) {
             if (data.extensionNames.contains(mapExtensions[i].metadata.name)) {
                 overrides += 1;
             }
@@ -104,7 +104,7 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
         allExtensions = new Extension[](total);
         uint256 idx;
 
-        for (uint256 i = 0; i < mapExtensionsLen; ) {
+        for (uint256 i; i < mapExtensionsLen; ) {
             string memory name = mapExtensions[i].metadata.name;
             if (!data.extensionNames.contains(name)) {
                 allExtensions[idx] = mapExtensions[i];
@@ -113,7 +113,7 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
             unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < namesLen; ) {
+        for (uint256 i; i < namesLen; ) {
             allExtensions[idx] = data.extensions[names[i]];
             idx += 1;
             unchecked { ++i; }

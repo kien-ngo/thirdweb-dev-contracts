@@ -83,13 +83,13 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
         address[] memory currentTargets = data.approvedTargets[targetSigner].values();
         uint256 currentLen = currentTargets.length;
 
-        for (uint256 i = 0; i < currentLen; ) {
+        for (uint256 i; i < currentLen; ) {
             data.approvedTargets[targetSigner].remove(currentTargets[i]);
             unchecked { ++i; }
         }
 
         uint256 len = _req.approvedTargets.length;
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             data.approvedTargets[targetSigner].add(_req.approvedTargets[i]);
             unchecked { ++i; }
         }
@@ -154,7 +154,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
 
         uint256 len = allSigners.length;
         signers = new SignerPermissions[](len);
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             address signer = allSigners[i];
             SignerPermissionsStatic memory permissions = data.signerPermissions[signer];
 
@@ -178,7 +178,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
         uint256 numOfActiveSigners;
         bool[] memory isSignerActive = new bool[](len);
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             address signer = allSigners[i];
 
             bool isActive = isActiveSigner(signer);
@@ -191,7 +191,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
 
         signers = new SignerPermissions[](numOfActiveSigners);
         uint256 index;
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             if (!isSignerActive[i]) {
                 continue;
             }

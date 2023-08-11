@@ -52,7 +52,7 @@ contract ExtensionRegistry is IExtensionRegistry, ExtensionState, PermissionsEnu
 
         allExtensions = new Extension[](len);
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             allExtensions[i] = data.extensions[names[i]];
             unchecked { ++i; }
         }

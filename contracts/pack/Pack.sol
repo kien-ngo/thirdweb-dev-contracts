@@ -214,7 +214,7 @@ contract Pack is
         require(_contents.length > 0 && _contents.length == _numOfRewardUnits.length, "!Len");
 
         if (!hasRole(assetRole, address(0))) {
-            for (uint256 i = 0; i < _contents.length; ) {
+            for (uint256 i; i < _contents.length; ) {
                 _checkRole(assetRole, _contents[i].assetContract);
                 unchecked { ++i; }
             }
@@ -260,7 +260,7 @@ contract Pack is
         require(balanceOf(_recipient, _packId) != 0, "!Bal");
 
         if (!hasRole(assetRole, address(0))) {
-            for (uint256 i = 0; i < _contents.length; ) {
+            for (uint256 i; i < _contents.length; ) {
                 _checkRole(assetRole, _contents[i].assetContract);
                 unchecked { ++i; }
             }
@@ -308,7 +308,7 @@ contract Pack is
     ) internal returns (uint256 supplyToMint) {
         uint256 sumOfRewardUnits;
 
-        for (uint256 i = 0; i < _contents.length; ) {
+        for (uint256 i; i < _contents.length; ) {
             require(_contents[i].totalAmount != 0, "0 amt");
             require(_contents[i].totalAmount % _numOfRewardUnits[i] == 0, "!R");
             require(_contents[i].tokenType != TokenType.ERC721 || _contents[i].totalAmount == 1, "!R");
@@ -323,7 +323,7 @@ contract Pack is
         supplyToMint = sumOfRewardUnits / amountPerOpen;
 
         if (isUpdate) {
-            for (uint256 i = 0; i < _contents.length; ) {
+            for (uint256 i; i < _contents.length; ) {
                 _addTokenInBundle(_contents[i], packId);
                 unchecked { ++i; }
             }
@@ -349,12 +349,12 @@ contract Pack is
 
         (Token[] memory _token, ) = getPackContents(_packId);
         bool[] memory _isUpdated = new bool[](totalRewardKinds);
-        for (uint256 i = 0; i < numOfRewardUnitsToDistribute; ) {
+        for (uint256 i; i < numOfRewardUnitsToDistribute; ) {
             uint256 randomVal = uint256(keccak256(abi.encode(random, i)));
             uint256 target = randomVal % totalRewardUnits;
             uint256 step;
 
-            for (uint256 j = 0; j < totalRewardKinds; ) {
+            for (uint256 j; j < totalRewardKinds; ) {
                 uint256 totalRewardUnitsOfKind = _token[j].totalAmount / pack.perUnitAmounts[j];
 
                 if (target < step + totalRewardUnitsOfKind) {
@@ -377,7 +377,7 @@ contract Pack is
             unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < totalRewardKinds; ) {
+        for (uint256 i; i < totalRewardKinds; ) {
             if (_isUpdated[i]) {
                 _updateTokenInBundle(_token[i], _packId, i);
             }
@@ -400,7 +400,7 @@ contract Pack is
         contents = new Token[](total);
         perUnitAmounts = new uint256[](total);
 
-        for (uint256 i = 0; i < total; ) {
+        for (uint256 i; i < total; ) {
             contents[i] = getTokenOfBundle(_packId, i);
             unchecked { ++i; }
         }
@@ -453,12 +453,12 @@ contract Pack is
         }
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         } else {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 // pack can no longer be updated after first transfer to non-zero address
                 if (canUpdatePack[ids[i]] && amounts[i] != 0) {
                     canUpdatePack[ids[i]] = false;
@@ -468,7 +468,7 @@ contract Pack is
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

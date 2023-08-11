@@ -138,7 +138,7 @@ contract Account is
             (address[] memory targets, uint256[] memory values, ) = decodeExecuteBatchCalldata(_userOp.callData);
 
             // For each target+value pair, check if the value is within the allowed range and if the target is approved.
-            for (uint256 i = 0; i < targets.length; ) {
+            for (uint256 i; i < targets.length; ) {
                 if (
                     permissions.nativeTokenLimitPerTransaction < values[i] ||
                     !data.approvedTargets[_signer].contains(targets[i])
@@ -194,7 +194,7 @@ contract Account is
         _registerOnFactory();
 
         require(_target.length == _calldata.length && _target.length == _value.length, "Account: wrong array lengths.");
-        for (uint256 i = 0; i < _target.length; ) {
+        for (uint256 i; i < _target.length; ) {
             _call(_target[i], _value[i], _calldata[i]);
             unchecked { ++i; }
         }

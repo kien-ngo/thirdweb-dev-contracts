@@ -86,7 +86,7 @@ contract AccountExtension is ContractMetadata, AccountPermissions, ERC721Holder,
     ) external virtual onlyAdminOrEntrypoint {
         _registerOnFactory();
         require(_target.length == _calldata.length && _target.length == _value.length, "Account: wrong array lengths.");
-        for (uint256 i = 0; i < _target.length; ) {
+        for (uint256 i; i < _target.length; ) {
             _call(_target[i], _value[i], _calldata[i]);
             unchecked { ++i; }
         }

@@ -199,7 +199,7 @@ contract DropERC1155_V2 is
 
     /// @dev Returns the URI for a given tokenId.
     function uri(uint256 _tokenId) public view override returns (string memory _tokenURI) {
-        for (uint256 i = 0; i < baseURIIndices.length; ) {
+        for (uint256 i; i < baseURIIndices.length; ) {
             if (_tokenId < baseURIIndices[i]) {
                 return string(abi.encodePacked(baseURI[baseURIIndices[i]], _tokenId.toString()));
             }
@@ -346,7 +346,7 @@ contract DropERC1155_V2 is
         condition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _phases.length; ) {
+        for (uint256 i; i < _phases.length; ) {
             require(
                 i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp,
                 "startTimestamp must be in ascending order."
@@ -711,14 +711,14 @@ contract DropERC1155_V2 is
         }
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

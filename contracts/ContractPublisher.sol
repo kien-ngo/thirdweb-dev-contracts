@@ -82,12 +82,12 @@ contract ContractPublisher is IContractPublisher, ERC2771Context, AccessControlE
         uint256 total = prevTotal + currentTotal;
         published = new CustomContractInstance[](total);
         // fill in previously published contracts
-        for (uint256 i = 0; i < prevTotal; ) {
+        for (uint256 i; i < prevTotal; ) {
             published[i] = linkedData[i];
             unchecked { ++i; }
         }
         // fill in current published contracts
-        for (uint256 i = 0; i < currentTotal; ) {
+        for (uint256 i; i < currentTotal; ) {
             bytes32 contractId = EnumerableSet.at(contractsOfPublisher[_publisher].contractIds, i);
             published[i + prevTotal] = contractsOfPublisher[_publisher].contracts[contractId].latest;
             unchecked { ++i; }
@@ -113,12 +113,12 @@ contract ContractPublisher is IContractPublisher, ERC2771Context, AccessControlE
         published = new CustomContractInstance[](total);
 
         // fill in previously published contracts
-        for (uint256 i = 0; i < prevTotal; ) {
+        for (uint256 i; i < prevTotal; ) {
             published[i] = linkedVersions[i];
             unchecked { ++i; }
         }
         // fill in current published contracts
-        for (uint256 i = 0; i < currentTotal; ) {
+        for (uint256 i; i < currentTotal; ) {
             published[i + prevTotal] = contractsOfPublisher[_publisher].contracts[id].instances[i];
             unchecked { ++i; }
         }
@@ -219,12 +219,12 @@ contract ContractPublisher is IContractPublisher, ERC2771Context, AccessControlE
         uint256 total = prevTotal + currentTotal;
         publishedMetadataUris = new string[](total);
         // fill in previously published uris
-        for (uint256 i = 0; i < prevTotal; ) {
+        for (uint256 i; i < prevTotal; ) {
             publishedMetadataUris[i] = linkedUris[i];
             unchecked { ++i; }
         }
         // fill in current published uris
-        for (uint256 i = 0; i < currentTotal; ) {
+        for (uint256 i; i < currentTotal; ) {
             publishedMetadataUris[i + prevTotal] = compilerMetadataUriToPublishedMetadataUris[compilerMetadataUri].uris[
                 i
             ];

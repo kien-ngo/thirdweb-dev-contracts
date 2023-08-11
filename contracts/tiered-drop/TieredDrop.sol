@@ -323,7 +323,7 @@ contract TieredDrop is
         uint256 startIdToMap = startTokenIdToMint;
         uint256 remaningToDistribute = _totalQuantityBeingClaimed;
 
-        for (uint256 i = 0; i < _tiers.length; ) {
+        for (uint256 i; i < _tiers.length; ) {
             string memory tier = _tiers[i];
 
             uint256 qtyFulfilled = _getQuantityFulfilledByTier(tier, remaningToDistribute);
@@ -366,7 +366,7 @@ contract TieredDrop is
 
         uint256 qtyRemaining = _quantity;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             TokenRange memory range = tokensInTier[i];
             uint256 gap;
 
@@ -425,7 +425,7 @@ contract TieredDrop is
     function getTierForToken(uint256 _tokenId) external view returns (string memory) {
         uint256 len = lengthEndIdsAtMint;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             uint256 endId = endIdsAtMint[i];
 
             if (_tokenId < endId) {
@@ -489,7 +489,7 @@ contract TieredDrop is
     function _getMetadataId(uint256 _tokenId) private view returns (uint256) {
         uint256 len = lengthEndIdsAtMint;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             if (_tokenId < endIdsAtMint[i]) {
                 uint256 targetEndId = endIdsAtMint[i];
                 uint256 diff = targetEndId - _tokenId;

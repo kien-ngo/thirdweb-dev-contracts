@@ -136,7 +136,7 @@ contract Split is
      */
     function distribute() public virtual {
         uint256 count = payeeCount();
-        for (uint256 i = 0; i < count; ) {
+        for (uint256 i; i < count; ) {
             _release(payable(payee(i)));
             unchecked { ++i; }
         }
@@ -147,7 +147,7 @@ contract Split is
      */
     function distribute(IERC20Upgradeable token) public virtual {
         uint256 count = payeeCount();
-        for (uint256 i = 0; i < count; ) {
+        for (uint256 i; i < count; ) {
             _release(token, payee(i));
             unchecked { ++i; }
         }

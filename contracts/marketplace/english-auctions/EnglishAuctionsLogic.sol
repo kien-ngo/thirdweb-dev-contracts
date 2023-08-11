@@ -266,7 +266,7 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
         _validAuctions = new Auction[](_auctionCount);
         uint256 index;
         uint256 count = _auctions.length;
-        for (uint256 i = 0; i < count; ) {
+        for (uint256 i; i < count; ) {
             if (
                 _auctions[i].startTimestamp <= block.timestamp &&
                 _auctions[i].endTimestamp > block.timestamp &&
@@ -517,7 +517,7 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
                 uint256 royaltyCut;
                 address royaltyRecipient;
 
-                for (uint256 i = 0; i < royaltyRecipientCount; ) {
+                for (uint256 i; i < royaltyRecipientCount; ) {
                     royaltyRecipient = recipients[i];
                     royaltyCut = amounts[i];
 

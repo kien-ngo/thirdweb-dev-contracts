@@ -388,7 +388,7 @@ contract DirectListingsLogic is IDirectListings, ReentrancyGuardLogic, ERC2771Co
         _validListings = new Listing[](_listingCount);
         uint256 index;
         uint256 count = _listings.length;
-        for (uint256 i = 0; i < count; ) {
+        for (uint256 i; i < count; ) {
             if (_validateExistingListing(_listings[i])) {
                 _validListings[index++] = _listings[i];
             }
@@ -561,7 +561,7 @@ contract DirectListingsLogic is IDirectListings, ReentrancyGuardLogic, ERC2771Co
                 uint256 royaltyCut;
                 address royaltyRecipient;
 
-                for (uint256 i = 0; i < royaltyRecipientCount; ) {
+                for (uint256 i; i < royaltyRecipientCount; ) {
                     royaltyRecipient = recipients[i];
                     royaltyCut = amounts[i];
 

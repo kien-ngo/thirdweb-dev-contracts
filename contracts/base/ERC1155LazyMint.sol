@@ -184,7 +184,7 @@ contract ERC1155LazyMint is
         require(caller == _owner || isApprovedForAll[_owner][caller], "Unapproved caller");
         require(_tokenIds.length == _amounts.length, "Length mismatch");
 
-        for (uint256 i = 0; i < _tokenIds.length; ) {
+        for (uint256 i; i < _tokenIds.length; ) {
             require(balanceOf[_owner][_tokenIds[i]] >= _amounts[i], "Not enough tokens owned");
             unchecked { ++i; }
         }
@@ -311,14 +311,14 @@ contract ERC1155LazyMint is
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
         if (from == address(0)) {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 totalSupply[ids[i]] += amounts[i];
                 unchecked { ++i; }
             }
         }
 
         if (to == address(0)) {
-            for (uint256 i = 0; i < ids.length; ) {
+            for (uint256 i; i < ids.length; ) {
                 totalSupply[ids[i]] -= amounts[i];
                 unchecked { ++i; }
             }

@@ -51,7 +51,7 @@ abstract contract SharedMetadataBatch is ISharedMetadataBatch {
         bytes32[] memory ids = _sharedMetadataBatchStorage().ids.values();
         metadata = new SharedMetadataWithId[](ids.length);
 
-        for (uint256 i = 0; i < ids.length; ) {
+        for (uint256 i; i < ids.length; ) {
             metadata[i] = _sharedMetadataBatchStorage().metadata[ids[i]];
             unchecked { ++i; }
         }

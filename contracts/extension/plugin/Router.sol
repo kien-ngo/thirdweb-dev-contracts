@@ -140,7 +140,7 @@ abstract contract Router is Multicall, ERC165, IRouter {
         uint256 len = defaultSelectors.length;
         uint256 count = selectorsForPlugin.length() + defaultSelectors.length;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             if (selectorsForPlugin.contains(defaultSelectors[i])) {
                 count -= 1;
                 defaultSelectors[i] = bytes4(0);
@@ -151,7 +151,7 @@ abstract contract Router is Multicall, ERC165, IRouter {
         registered = new bytes4[](count);
         uint256 index;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             if (defaultSelectors[i] != bytes4(0)) {
                 registered[index++] = defaultSelectors[i];
             }
@@ -159,7 +159,7 @@ abstract contract Router is Multicall, ERC165, IRouter {
         }
 
         len = selectorsForPlugin.length();
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             registered[index++] = bytes4(data.selectorsForPlugin[_pluginAddress].at(i));
             unchecked { ++i; }
         }
@@ -177,8 +177,8 @@ abstract contract Router is Multicall, ERC165, IRouter {
 
         uint256 totalCount = overrideSelectorsLen + defaultPluginsLen;
 
-        for (uint256 i = 0; i < overrideSelectorsLen; ) {
-            for (uint256 j = 0; j < defaultPluginsLen; ) {
+        for (uint256 i; i < overrideSelectorsLen; ) {
+            for (uint256 j; j < defaultPluginsLen; ) {
                 if (bytes4(overrideSelectors.at(i)) == defaultPlugins[j].functionSelector) {
                     totalCount -= 1;
                     defaultPlugins[j].functionSelector = bytes4(0);
@@ -191,7 +191,7 @@ abstract contract Router is Multicall, ERC165, IRouter {
         registered = new Plugin[](totalCount);
         uint256 index;
 
-        for (uint256 i = 0; i < defaultPluginsLen; ) {
+        for (uint256 i; i < defaultPluginsLen; ) {
             if (defaultPlugins[i].functionSelector != bytes4(0)) {
                 registered[index] = defaultPlugins[i];
                 index += 1;
@@ -199,7 +199,7 @@ abstract contract Router is Multicall, ERC165, IRouter {
             unchecked { ++i; }
         }
 
-        for (uint256 i = 0; i < overrideSelectorsLen; ) {
+        for (uint256 i; i < overrideSelectorsLen; ) {
             registered[index] = data.pluginForSelector[bytes4(overrideSelectors.at(i))];
             index += 1;
             unchecked { ++i; }

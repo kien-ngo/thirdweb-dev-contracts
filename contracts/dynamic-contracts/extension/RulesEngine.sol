@@ -44,7 +44,7 @@ abstract contract RulesEngine is IRulesEngine {
         bytes32[] memory ids = _rulesEngineStorage().ids.values();
         uint256 len = ids.length;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             RuleWithId memory rule = _rulesEngineStorage().rules[ids[i]];
             score += _getScoreForRule(_tokenOwner, rule);
             unchecked { ++i; }
@@ -57,7 +57,7 @@ abstract contract RulesEngine is IRulesEngine {
 
         rules = new RuleWithId[](len);
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             rules[i] = _rulesEngineStorage().rules[ids[i]];
             unchecked { ++i; }
         }

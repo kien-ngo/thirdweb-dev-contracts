@@ -192,7 +192,7 @@ contract DropERC721_V3 is
 
     /// @dev Returns the URI for a given tokenId.
     function tokenURI(uint256 _tokenId) public view override returns (string memory) {
-        for (uint256 i = 0; i < baseURIIndices.length; ) {
+        for (uint256 i; i < baseURIIndices.length; ) {
             if (_tokenId < baseURIIndices[i]) {
                 if (encryptedData[baseURIIndices[i]].length != 0) {
                     return string(abi.encodePacked(baseURI[baseURIIndices[i]], "0"));
@@ -302,7 +302,7 @@ contract DropERC721_V3 is
         }
 
         // Iterate over the data stepping by 32 bytes
-        for (uint256 i = 0; i < length; ) {
+        for (uint256 i; i < length; ) {
             // Generate hash of the key and offset
             bytes32 hash = keccak256(abi.encodePacked(key, i));
 
@@ -415,7 +415,7 @@ contract DropERC721_V3 is
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _phases.length; ) {
+        for (uint256 i; i < _phases.length; ) {
             require(i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp, "ST");
 
             uint256 supplyClaimedAlready = claimCondition.phases[newStartIndex + i].supplyClaimed;
@@ -494,7 +494,7 @@ contract DropERC721_V3 is
 
         uint256 tokenIdToClaim = nextTokenIdToClaim;
 
-        for (uint256 i = 0; i < _quantityBeingClaimed; ) {
+        for (uint256 i; i < _quantityBeingClaimed; ) {
             _mint(_to, tokenIdToClaim);
             tokenIdToClaim += 1;
             unchecked { ++i; }

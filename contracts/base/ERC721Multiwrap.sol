@@ -152,7 +152,7 @@ contract ERC721Multiwrap is
         address _recipient
     ) public payable virtual onlyRoleWithSwitch(MINTER_ROLE) returns (uint256 tokenId) {
         if (!hasRole(ASSET_ROLE, address(0))) {
-            for (uint256 i = 0; i < _tokensToWrap.length; ) {
+            for (uint256 i; i < _tokensToWrap.length; ) {
                 _checkRole(ASSET_ROLE, _tokensToWrap[i].assetContract);
                 unchecked { ++i; }
             }

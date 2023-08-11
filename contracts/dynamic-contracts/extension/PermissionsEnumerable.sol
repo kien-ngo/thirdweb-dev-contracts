@@ -58,7 +58,7 @@ contract PermissionsEnumerable is IPermissionsEnumerable, Permissions {
         uint256 currentIndex = data.roleMembers[role].index;
         uint256 check;
 
-        for (uint256 i = 0; i < currentIndex; ) {
+        for (uint256 i; i < currentIndex; ) {
             if (data.roleMembers[role].members[i] != address(0)) {
                 if (check == index) {
                     member = data.roleMembers[role].members[i];
@@ -85,7 +85,7 @@ contract PermissionsEnumerable is IPermissionsEnumerable, Permissions {
         PermissionsEnumerableStorage.Data storage data = PermissionsEnumerableStorage.permissionsEnumerableStorage();
         uint256 currentIndex = data.roleMembers[role].index;
 
-        for (uint256 i = 0; i < currentIndex; ) {
+        for (uint256 i; i < currentIndex; ) {
             if (data.roleMembers[role].members[i] != address(0)) {
                 count += 1;
             }

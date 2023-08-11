@@ -260,7 +260,7 @@ contract DropERC20_V2 is
         claimCondition.currentStartId = newStartIndex;
 
         uint256 lastConditionStartTimestamp;
-        for (uint256 i = 0; i < _phases.length; ) {
+        for (uint256 i; i < _phases.length; ) {
             require(
                 i == 0 || lastConditionStartTimestamp < _phases[i].startTimestamp,
                 "startTimestamp must be in ascending order."

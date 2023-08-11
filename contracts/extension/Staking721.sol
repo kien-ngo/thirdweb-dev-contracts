@@ -144,7 +144,7 @@ abstract contract Staking721 is ReentrancyGuard, IStaking721 {
         uint256 indexedTokenCount = _indexedTokens.length;
         uint256 stakerTokenCount;
 
-        for (uint256 i = 0; i < indexedTokenCount; ) {
+        for (uint256 i; i < indexedTokenCount; ) {
             _isStakerToken[i] = stakerAddress[_indexedTokens[i]] == _staker;
             if (_isStakerToken[i]) stakerTokenCount += 1;
             unchecked { ++i; }
@@ -152,7 +152,7 @@ abstract contract Staking721 is ReentrancyGuard, IStaking721 {
 
         _tokensStaked = new uint256[](stakerTokenCount);
         uint256 count;
-        for (uint256 i = 0; i < indexedTokenCount; ) {
+        for (uint256 i; i < indexedTokenCount; ) {
             if (_isStakerToken[i]) {
                 _tokensStaked[count] = _indexedTokens[i];
                 count += 1;
@@ -189,7 +189,7 @@ abstract contract Staking721 is ReentrancyGuard, IStaking721 {
             stakers[_stakeMsgSender()].timeOfLastUpdate = uint128(block.timestamp);
             stakers[_stakeMsgSender()].conditionIdOflastUpdate = nextConditionId - 1;
         }
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             isStaking = 2;
             IERC721(_stakingToken).safeTransferFrom(_stakeMsgSender(), address(this), _tokenIds[i]);
             isStaking = 1;
@@ -220,7 +220,7 @@ abstract contract Staking721 is ReentrancyGuard, IStaking721 {
 
         if (_amountStaked == len) {
             address[] memory _stakersArray = stakersArray;
-            for (uint256 i = 0; i < _stakersArray.length; ) {
+            for (uint256 i; i < _stakersArray.length; ) {
                 if (_stakersArray[i] == _stakeMsgSender()) {
                     stakersArray[i] = _stakersArray[_stakersArray.length - 1];
                     stakersArray.pop();
@@ -231,7 +231,7 @@ abstract contract Staking721 is ReentrancyGuard, IStaking721 {
         }
         stakers[_stakeMsgSender()].amountStaked -= len;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
             require(stakerAddress[_tokenIds[i]] == _stakeMsgSender(), "Not staker");
             stakerAddress[_tokenIds[i]] = address(0);
             IERC721(_stakingToken).safeTransferFrom(address(this), _stakeMsgSender(), _tokenIds[i]);

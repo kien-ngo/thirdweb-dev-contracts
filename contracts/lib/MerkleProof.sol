@@ -29,7 +29,7 @@ library MerkleProof {
         bytes32 computedHash = leaf;
         uint256 index;
 
-        for (uint256 i = 0; i < proof.length; ) {
+        for (uint256 i; i < proof.length; ) {
             index *= 2;
             bytes32 proofElement = proof[i];
 

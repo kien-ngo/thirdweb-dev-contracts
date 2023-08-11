@@ -223,7 +223,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
         uint256 indexedTokenCount = _indexedTokens.length;
         uint256 stakerTokenCount;
 
-        for (uint256 i = 0; i < indexedTokenCount; ) {
+        for (uint256 i; i < indexedTokenCount; ) {
             _stakedAmounts[i] = stakers[_indexedTokens[i]][_staker].amountStaked;
             if (_stakedAmounts[i] > 0) stakerTokenCount += 1;
             unchecked { ++i; }
@@ -232,7 +232,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
         _tokensStaked = new uint256[](stakerTokenCount);
         _tokenAmounts = new uint256[](stakerTokenCount);
         uint256 count;
-        for (uint256 i = 0; i < indexedTokenCount; ) {
+        for (uint256 i; i < indexedTokenCount; ) {
             if (_stakedAmounts[i] > 0) {
                 _tokensStaked[count] = _indexedTokens[i];
                 _tokenAmounts[count] = _stakedAmounts[i];
@@ -309,7 +309,7 @@ abstract contract Staking1155 is ReentrancyGuard, IStaking1155 {
 
         if (_amountStaked == _amount) {
             address[] memory _stakersArray = stakersArray[_tokenId];
-            for (uint256 i = 0; i < _stakersArray.length; ) {
+            for (uint256 i; i < _stakersArray.length; ) {
                 if (_stakersArray[i] == _stakeMsgSender()) {
                     stakersArray[_tokenId][i] = _stakersArray[_stakersArray.length - 1];
                     stakersArray[_tokenId].pop();
