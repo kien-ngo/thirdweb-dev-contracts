@@ -167,8 +167,10 @@ contract Multiwrap is
         address _recipient
     ) external payable nonReentrant onlyRoleWithSwitch(MINTER_ROLE) returns (uint256 tokenId) {
         if (!hasRole(ASSET_ROLE, address(0))) {
-            for (uint256 i = 0; i < _tokensToWrap.length; i += 1) {
+            uint256 length = _tokensToWrap.length;
+            for (uint256 i; i < length; ) {
                 _checkRole(ASSET_ROLE, _tokensToWrap[i].assetContract);
+                unchecked { ++i; }
             }
         }
 
@@ -202,8 +204,9 @@ contract Multiwrap is
         uint256 total = getTokenCountOfBundle(_tokenId);
         contents = new Token[](total);
 
-        for (uint256 i = 0; i < total; i += 1) {
+        for (uint256 i; i < total; ) {
             contents[i] = getTokenOfBundle(_tokenId, i);
+            unchecked { ++i; }
         }
     }
 
