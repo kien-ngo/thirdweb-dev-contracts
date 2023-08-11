@@ -358,16 +358,17 @@ contract Pack is
             uint256 step;
 
             for (uint256 j; j < totalRewardKinds; ) {
-                uint256 totalRewardUnitsOfKind = _token[j].totalAmount / pack.perUnitAmounts[j];
+                uint256 perUnitAmount = pack.perUnitAmounts[j];
+                uint256 totalRewardUnitsOfKind = _token[j].totalAmount / perUnitAmount;
 
                 if (target < step + totalRewardUnitsOfKind) {
-                    _token[j].totalAmount -= pack.perUnitAmounts[j];
+                    _token[j].totalAmount -= perUnitAmount;
                     _isUpdated[j] = true;
 
                     rewardUnits[i].assetContract = _token[j].assetContract;
                     rewardUnits[i].tokenType = _token[j].tokenType;
                     rewardUnits[i].tokenId = _token[j].tokenId;
-                    rewardUnits[i].totalAmount = pack.perUnitAmounts[j];
+                    rewardUnits[i].totalAmount = perUnitAmount;
 
                     totalRewardUnits -= 1;
 
