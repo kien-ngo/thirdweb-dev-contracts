@@ -175,7 +175,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
         address[] memory allSigners = data.allSigners.values();
 
         uint256 len = allSigners.length;
-        uint256 numOfActiveSigners = 0;
+        uint256 numOfActiveSigners;
         bool[] memory isSignerActive = new bool[](len);
 
         for (uint256 i = 0; i < len; ) {
@@ -190,7 +190,7 @@ abstract contract AccountPermissions is IAccountPermissions, EIP712 {
         }
 
         signers = new SignerPermissions[](numOfActiveSigners);
-        uint256 index = 0;
+        uint256 index;
         for (uint256 i = 0; i < len; ) {
             if (!isSignerActive[i]) {
                 continue;

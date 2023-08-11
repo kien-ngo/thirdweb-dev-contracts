@@ -223,7 +223,7 @@ abstract contract Staking1155Upgradeable is ReentrancyGuardUpgradeable, IStaking
         uint256[] memory _indexedTokens = indexedTokens;
         uint256[] memory _stakedAmounts = new uint256[](_indexedTokens.length);
         uint256 indexedTokenCount = _indexedTokens.length;
-        uint256 stakerTokenCount = 0;
+        uint256 stakerTokenCount;
 
         for (uint256 i = 0; i < indexedTokenCount; ) {
             _stakedAmounts[i] = stakers[_indexedTokens[i]][_staker].amountStaked;
@@ -233,7 +233,7 @@ abstract contract Staking1155Upgradeable is ReentrancyGuardUpgradeable, IStaking
 
         _tokensStaked = new uint256[](stakerTokenCount);
         _tokenAmounts = new uint256[](stakerTokenCount);
-        uint256 count = 0;
+        uint256 count;
         for (uint256 i = 0; i < indexedTokenCount; ) {
             if (_stakedAmounts[i] > 0) {
                 _tokensStaked[count] = _indexedTokens[i];

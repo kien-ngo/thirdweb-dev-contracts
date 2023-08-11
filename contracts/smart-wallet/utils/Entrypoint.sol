@@ -103,7 +103,7 @@ contract EntryPoint is IEntryPoint, StakeManager, NonceManager, ReentrancyGuard 
                 _validateAccountAndPaymasterValidationData(i, validationData, pmValidationData, address(0));
             }
 
-            uint256 collected = 0;
+            uint256 collected;
             emit BeforeExecution();
 
             for (uint256 i = 0; i < opslen; i++) {
@@ -124,7 +124,7 @@ contract EntryPoint is IEntryPoint, StakeManager, NonceManager, ReentrancyGuard 
         nonReentrant
     {
         uint256 opasLen = opsPerAggregator.length;
-        uint256 totalOps = 0;
+        uint256 totalOps;
         for (uint256 i = 0; i < opasLen; ) {
             UserOpsPerAggregator calldata opa = opsPerAggregator[i];
             UserOperation[] calldata ops = opa.userOps;
@@ -148,7 +148,7 @@ contract EntryPoint is IEntryPoint, StakeManager, NonceManager, ReentrancyGuard 
 
         emit BeforeExecution();
 
-        uint256 opIndex = 0;
+        uint256 opIndex;
         for (uint256 a = 0; a < opasLen; ) {
             UserOpsPerAggregator calldata opa = opsPerAggregator[a];
             UserOperation[] calldata ops = opa.userOps;
@@ -174,7 +174,7 @@ contract EntryPoint is IEntryPoint, StakeManager, NonceManager, ReentrancyGuard 
             unchecked { ++a; }
         }
 
-        uint256 collected = 0;
+        uint256 collected;
         opIndex = 0;
         for (uint256 a = 0; a < opasLen; ) {
             UserOpsPerAggregator calldata opa = opsPerAggregator[a];
@@ -443,7 +443,7 @@ contract EntryPoint is IEntryPoint, StakeManager, NonceManager, ReentrancyGuard 
             _createSenderIfNeeded(opIndex, opInfo, op.initCode);
             address paymaster = mUserOp.paymaster;
             numberMarker();
-            uint256 missingAccountFunds = 0;
+            uint256 missingAccountFunds;
             if (paymaster == address(0)) {
                 uint256 bal = balanceOf(sender);
                 missingAccountFunds = bal > requiredPrefund ? 0 : requiredPrefund - bal;

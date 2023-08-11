@@ -91,7 +91,7 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
         string[] memory names = data.extensionNames.values();
         uint256 namesLen = names.length;
 
-        uint256 overrides = 0;
+        uint256 overrides;
         for (uint256 i = 0; i < mapExtensionsLen; ) {
             if (data.extensionNames.contains(mapExtensions[i].metadata.name)) {
                 overrides += 1;
@@ -102,7 +102,7 @@ abstract contract TWRouter is ITWRouter, Multicall, ExtensionState, Router {
         uint256 total = (namesLen + mapExtensionsLen) - overrides;
 
         allExtensions = new Extension[](total);
-        uint256 idx = 0;
+        uint256 idx;
 
         for (uint256 i = 0; i < mapExtensionsLen; ) {
             string memory name = mapExtensions[i].metadata.name;

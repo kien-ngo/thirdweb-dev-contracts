@@ -99,8 +99,8 @@ contract TWFee is ITWFee, Multicall, ERC2771Context, AccessControlEnumerable, IF
     /// @dev Returns the fee info for a given module and fee type.
     function getFeeInfo(address _proxy, uint256 _feeType) external view returns (address recipient, uint256 bps) {
         address deployer = factory.deployer(_proxy);
-        uint128 tierId = 0;
-        uint128 validUntilTimestamp = 0;
+        uint128 tierId;
+        uint128 validUntilTimestamp;
 
         if (address(tierPlacementExtension) != address(0)) {
             // https://github.com/crytic/slither/issues/982

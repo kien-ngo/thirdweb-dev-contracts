@@ -106,7 +106,7 @@ abstract contract ERC20Votes is IVotes, ERC20Permit {
         // past the end of the array, so we technically don't find a checkpoint after `blockNumber`, but it works out
         // the same.
         uint256 high = ckpts.length;
-        uint256 low = 0;
+        uint256 low;
         while (low < high) {
             uint256 mid = Math.average(low, high);
             if (ckpts[mid].fromBlock > blockNumber) {

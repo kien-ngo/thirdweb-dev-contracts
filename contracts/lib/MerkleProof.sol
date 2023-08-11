@@ -27,7 +27,7 @@ library MerkleProof {
         bytes32 leaf
     ) internal pure returns (bool, uint256) {
         bytes32 computedHash = leaf;
-        uint256 index = 0;
+        uint256 index;
 
         for (uint256 i = 0; i < proof.length; ) {
             index *= 2;

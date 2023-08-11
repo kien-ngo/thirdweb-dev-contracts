@@ -84,7 +84,7 @@ contract EvolvingNFTLogic is
 
         // Get score
         address owner = ownerOf(_tokenId);
-        uint256 score = 0;
+        uint256 score;
 
         address engine = RulesEngine(address(this)).getRulesEngineOverride();
         if (engine != address(0)) {
@@ -95,7 +95,7 @@ contract EvolvingNFTLogic is
 
         // Get the target ID i.e. `start` of the range that the score falls into.
         bytes32[] memory ids = _sharedMetadataBatchStorage().ids.values();
-        bytes32 targetId = 0;
+        bytes32 targetId;
 
         for (uint256 i = 0; i < ids.length; ) {
             if (uint256(ids[i]) <= score) {

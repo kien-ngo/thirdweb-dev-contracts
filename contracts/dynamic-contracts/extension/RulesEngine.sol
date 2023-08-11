@@ -111,7 +111,7 @@ abstract contract RulesEngine is IRulesEngine {
     //////////////////////////////////////////////////////////////*/
 
     function _getScoreForRule(address _tokenOwner, RuleWithId memory _rule) internal view returns (uint256 score) {
-        uint256 balance = 0;
+        uint256 balance;
 
         if (_rule.tokenType == TokenType.ERC20) {
             balance = IERC20(_rule.token).balanceOf(_tokenOwner);

@@ -144,7 +144,7 @@ abstract contract Staking721Upgradeable is ReentrancyGuardUpgradeable, IStaking7
         uint256[] memory _indexedTokens = indexedTokens;
         bool[] memory _isStakerToken = new bool[](_indexedTokens.length);
         uint256 indexedTokenCount = _indexedTokens.length;
-        uint256 stakerTokenCount = 0;
+        uint256 stakerTokenCount;
 
         for (uint256 i = 0; i < indexedTokenCount; ) {
             _isStakerToken[i] = stakerAddress[_indexedTokens[i]] == _staker;
@@ -153,7 +153,7 @@ abstract contract Staking721Upgradeable is ReentrancyGuardUpgradeable, IStaking7
         }
 
         _tokensStaked = new uint256[](stakerTokenCount);
-        uint256 count = 0;
+        uint256 count;
         for (uint256 i = 0; i < indexedTokenCount; ) {
             if (_isStakerToken[i]) {
                 _tokensStaked[count] = _indexedTokens[i];

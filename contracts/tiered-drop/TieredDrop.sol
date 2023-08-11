@@ -368,7 +368,7 @@ contract TieredDrop is
 
         for (uint256 i = 0; i < len; ) {
             TokenRange memory range = tokensInTier[i];
-            uint256 gap = 0;
+            uint256 gap;
 
             if (range.startIdInclusive <= nextIdFromTier && nextIdFromTier < range.endIdNonInclusive) {
                 uint256 proxyStartId = nextIdFromTier;
@@ -452,7 +452,7 @@ contract TieredDrop is
 
         require(_startIdx < _endIdx && _endIdx <= len, "TieredDrop: invalid indices.");
 
-        uint256 numOfRangesForTier = 0;
+        uint256 numOfRangesForTier;
         bytes32 hashOfTier = keccak256(abi.encodePacked(_tier));
 
         for (uint256 i = _startIdx; i < _endIdx; ) {
@@ -465,7 +465,7 @@ contract TieredDrop is
         }
 
         ranges = new TokenRange[](numOfRangesForTier);
-        uint256 idx = 0;
+        uint256 idx;
 
         for (uint256 i = _startIdx; i < _endIdx; ) {
             bytes32 hashOfStoredTier = keccak256(abi.encodePacked(tierAtEndId[endIdsAtMint[i]]));
@@ -473,7 +473,7 @@ contract TieredDrop is
             if (hashOfStoredTier == hashOfTier) {
                 uint256 end = endIdsAtMint[i];
 
-                uint256 start = 0;
+                uint256 start;
                 if (i > 0) {
                     start = endIdsAtMint[i - 1];
                 }

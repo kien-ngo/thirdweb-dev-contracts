@@ -264,7 +264,7 @@ contract EnglishAuctionsLogic is IEnglishAuctions, ReentrancyGuardLogic, ERC2771
         }
 
         _validAuctions = new Auction[](_auctionCount);
-        uint256 index = 0;
+        uint256 index;
         uint256 count = _auctions.length;
         for (uint256 i = 0; i < count; ) {
             if (

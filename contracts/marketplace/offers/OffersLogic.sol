@@ -191,7 +191,7 @@ contract OffersLogic is IOffers, ReentrancyGuardLogic, ERC2771ContextConsumer {
         }
 
         _validOffers = new Offer[](_offerCount);
-        uint256 index = 0;
+        uint256 index;
         uint256 count = _offers.length;
         for (uint256 i = 0; i < count; ) {
             if (_validateExistingOffer(_offers[i])) {

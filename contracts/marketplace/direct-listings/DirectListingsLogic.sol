@@ -386,7 +386,7 @@ contract DirectListingsLogic is IDirectListings, ReentrancyGuardLogic, ERC2771Co
         }
 
         _validListings = new Listing[](_listingCount);
-        uint256 index = 0;
+        uint256 index;
         uint256 count = _listings.length;
         for (uint256 i = 0; i < count; ) {
             if (_validateExistingListing(_listings[i])) {
