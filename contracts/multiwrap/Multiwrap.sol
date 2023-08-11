@@ -166,33 +166,35 @@ contract Multiwrap is
         string calldata _uriForWrappedToken,
         address _recipient
     ) external payable nonReentrant onlyRoleWithSwitch(MINTER_ROLE) returns (uint256 tokenId) {
-        if (!hasRole(ASSET_ROLE, address(0))) {
+        bytes32 _ASSET_ROLE = ASSET_ROLE;
+        if (!hasRole(_ASSET_ROLE, address(0))) {
             uint256 length = _tokensToWrap.length;
             for (uint256 i; i < length; ) {
-                _checkRole(ASSET_ROLE, _tokensToWrap[i].assetContract);
+                _checkRole(_ASSET_ROLE, _tokensToWrap[i].assetContract);
                 unchecked { ++i; }
             }
         }
 
         tokenId = nextTokenIdToMint;
         nextTokenIdToMint += 1;
-
-        _storeTokens(_msgSender(), _tokensToWrap, _uriForWrappedToken, tokenId);
+        address sender = _msgSender();
+        _storeTokens(sender, _tokensToWrap, _uriForWrappedToken, tokenId);
 
         _safeMint(_recipient, tokenId);
 
-        emit TokensWrapped(_msgSender(), _recipient, tokenId, _tokensToWrap);
+        emit TokensWrapped(sender, _recipient, tokenId, _tokensToWrap);
     }
 
     /// @dev Unwrap a wrapped NFT to retrieve underlying ERC1155, ERC721, ERC20 tokens.
     function unwrap(uint256 _tokenId, address _recipient) external nonReentrant onlyRoleWithSwitch(UNWRAP_ROLE) {
         require(_tokenId < nextTokenIdToMint, "wrapped NFT DNE.");
-        require(_isApprovedOrOwner(_msgSender(), _tokenId), "caller not approved for unwrapping.");
+        address sender = _msgSender();
+        require(_isApprovedOrOwner(sender, _tokenId), "caller not approved for unwrapping.");
 
         _burn(_tokenId);
         _releaseTokens(_recipient, _tokenId);
 
-        emit TokensUnwrapped(_msgSender(), _recipient, _tokenId);
+        emit TokensUnwrapped(sender, _recipient, _tokenId);
     }
 
     /*///////////////////////////////////////////////////////////////
