@@ -95,30 +95,30 @@ contract AirdropERC721 is
         AirdropContent[] calldata _contents
     ) external nonReentrant {
         require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "Not authorized.");
-
         uint256 len = _contents.length;
 
-        for (uint256 i = 0; i < len; ) {
+        for (uint256 i; i < len; ) {
+            uint256 _tokenId = _contents[i].tokenId;
+            address _recipient = _contents[i].recipient;
             try
                 IERC721(_tokenAddress).safeTransferFrom{ gas: 80_000 }(
                     _tokenOwner,
-                    _contents[i].recipient,
-                    _contents[i].tokenId
+                    _recipient,
+                    _tokenId
                 )
             {} catch {
                 // revert if failure is due to unapproved tokens
                 require(
-                    (IERC721(_tokenAddress).ownerOf(_contents[i].tokenId) == _tokenOwner &&
-                        address(this) == IERC721(_tokenAddress).getApproved(_contents[i].tokenId)) ||
-                        IERC721(_tokenAddress).isApprovedForAll(_tokenOwner, address(this)),
+                    IERC721(_tokenAddress).isApprovedForAll(_tokenOwner, address(this)) ||
+                        (IERC721(_tokenAddress).ownerOf(_tokenId) == _tokenOwner &&
+                            address(this) == IERC721(_tokenAddress).getApproved(_tokenId)),
                     "Not owner or approved"
                 );
-
-                emit AirdropFailed(_tokenAddress, _tokenOwner, _contents[i].recipient, _contents[i].tokenId);
+                emit AirdropFailed(_tokenAddress, _tokenOwner, _recipient, _tokenId);
             }
 
             unchecked {
-                i += 1;
+                ++i;
             }
         }
     }
