@@ -376,19 +376,27 @@ contract DirectListingsLogic is IDirectListings, ReentrancyGuardLogic, ERC2771Co
         Listing[] memory _listings = new Listing[](_endId - _startId + 1);
         uint256 _listingCount;
 
-        for (uint256 i = _startId; i <= _endId; i += 1) {
-            _listings[i - _startId] = data.listings[i];
-            if (_validateExistingListing(_listings[i - _startId])) {
-                _listingCount += 1;
+        for (uint256 i = _startId; i <= _endId; ) {
+            uint256 _index = i - _startId;
+            Listing memory _value = data.listings[i];
+            _listings[_index] = _value;
+            unchecked {
+                if (_validateExistingListing(_value)) {
+                    _listingCount += 1;
+                }
+                ++i;
             }
         }
 
         _validListings = new Listing[](_listingCount);
-        uint256 index = 0;
+        uint256 index;
         uint256 count = _listings.length;
-        for (uint256 i = 0; i < count; i += 1) {
+        for (uint256 i; i < count; ) {
             if (_validateExistingListing(_listings[i])) {
                 _validListings[index++] = _listings[i];
+            }
+            unchecked {
+                ++i;
             }
         }
     }
