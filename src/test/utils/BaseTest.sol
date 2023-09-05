@@ -40,6 +40,7 @@ import { EditionStake } from "contracts/prebuilts/staking/EditionStake.sol";
 import { TokenStake } from "contracts/prebuilts/staking/TokenStake.sol";
 import { Mock, MockContract } from "../mocks/Mock.sol";
 import "../mocks/MockContractPublisher.sol";
+import { MigrateERC721 } from "contracts/prebuilts/unaudited/airdrop/MigrateERC721.sol";
 
 abstract contract BaseTest is DSTest, Test {
     string public constant NAME = "NAME";
@@ -302,6 +303,8 @@ abstract contract BaseTest is DSTest, Test {
             "AirdropERC721",
             abi.encodeCall(AirdropERC721.initialize, (deployer, CONTRACT_URI, forwarders()))
         );
+
+        deployContractProxy("MigrateERC721", abi.encodeCall(MigrateERC721.initialize, (forwarders())));
         deployContractProxy(
             "AirdropERC20",
             abi.encodeCall(AirdropERC20.initialize, (deployer, CONTRACT_URI, forwarders()))
@@ -382,10 +385,10 @@ abstract contract BaseTest is DSTest, Test {
         );
     }
 
-    function deployContractProxy(string memory _contractType, bytes memory _initializer)
-        public
-        returns (address proxyAddress)
-    {
+    function deployContractProxy(
+        string memory _contractType,
+        bytes memory _initializer
+    ) public returns (address proxyAddress) {
         vm.startPrank(deployer);
         proxyAddress = TWFactory(factory).deployProxy(bytes32(bytes(_contractType)), _initializer);
         contracts[bytes32(bytes(_contractType))] = proxyAddress;
@@ -404,22 +407,14 @@ abstract contract BaseTest is DSTest, Test {
         wallet = new Wallet();
     }
 
-    function assertIsOwnerERC721(
-        address _token,
-        address _owner,
-        uint256[] memory _tokenIds
-    ) internal {
+    function assertIsOwnerERC721(address _token, address _owner, uint256[] memory _tokenIds) internal {
         for (uint256 i = 0; i < _tokenIds.length; i += 1) {
             bool isOwnerOfToken = MockERC721(_token).ownerOf(_tokenIds[i]) == _owner;
             assertTrue(isOwnerOfToken);
         }
     }
 
-    function assertIsNotOwnerERC721(
-        address _token,
-        address _owner,
-        uint256[] memory _tokenIds
-    ) internal {
+    function assertIsNotOwnerERC721(address _token, address _owner, uint256[] memory _tokenIds) internal {
         for (uint256 i = 0; i < _tokenIds.length; i += 1) {
             bool isOwnerOfToken = MockERC721(_token).ownerOf(_tokenIds[i]) == _owner;
             assertTrue(!isOwnerOfToken);
@@ -452,19 +447,11 @@ abstract contract BaseTest is DSTest, Test {
         }
     }
 
-    function assertBalERC20Eq(
-        address _token,
-        address _owner,
-        uint256 _amount
-    ) internal {
+    function assertBalERC20Eq(address _token, address _owner, uint256 _amount) internal {
         assertEq(MockERC20(_token).balanceOf(_owner), _amount);
     }
 
-    function assertBalERC20Gte(
-        address _token,
-        address _owner,
-        uint256 _amount
-    ) internal {
+    function assertBalERC20Gte(address _token, address _owner, uint256 _amount) internal {
         assertTrue(MockERC20(_token).balanceOf(_owner) >= _amount);
     }
 
