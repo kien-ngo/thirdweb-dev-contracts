@@ -60,5 +60,7 @@
     "gas": "forge test --mc Benchmark --gas-report > gasreport.txt",
     "forge:snapshot": "forge snapshot --check"
   },
-  "dependencies": {}
+  "dependencies": {
+    "thirdweb": "^0.12.2"
+  }
 }

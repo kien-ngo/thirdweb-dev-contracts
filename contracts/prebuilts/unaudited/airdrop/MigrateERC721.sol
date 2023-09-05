@@ -15,18 +15,7 @@ import { MulticallUpgradeable } from "@openzeppelin/contracts-upgradeable/utils/
 //  ==========  Internal imports    ==========
 import "../../../external-deps/openzeppelin/metatx/ERC2771ContextUpgradeable.sol";
 
-//  ==========  Features    ==========
-import "../../../extension/PermissionsEnumerable.sol";
-import "../../../extension/ContractMetadata.sol";
-
-contract MigrateERC721 is
-    Initializable,
-    ContractMetadata,
-    PermissionsEnumerable,
-    ReentrancyGuardUpgradeable,
-    ERC2771ContextUpgradeable,
-    MulticallUpgradeable
-{
+contract MigrateERC721 is Initializable, ReentrancyGuardUpgradeable, ERC2771ContextUpgradeable, MulticallUpgradeable {
     /*///////////////////////////////////////////////////////////////
                             State variables
     //////////////////////////////////////////////////////////////*/
@@ -41,15 +30,8 @@ contract MigrateERC721 is
     constructor() initializer {}
 
     /// @dev Initiliazes the contract, like a constructor.
-    function initialize(
-        address _defaultAdmin,
-        string memory _contractURI,
-        address[] memory _trustedForwarders
-    ) external initializer {
+    function initialize(address[] memory _trustedForwarders) external initializer {
         __ERC2771Context_init_unchained(_trustedForwarders);
-
-        _setupContractURI(_contractURI);
-        _setupRole(DEFAULT_ADMIN_ROLE, _defaultAdmin);
         __ReentrancyGuard_init();
     }
 
@@ -80,7 +62,15 @@ contract MigrateERC721 is
         uint256 len = _tokenIds.length;
         IERC721 _tokenContract = IERC721(_tokenAddress);
         for (uint256 i; i < len; ) {
-            _tokenContract.safeTransferFrom(_tokenOwner, _recipient, _tokenIds[i]);
+            try _tokenContract.safeTransferFrom(_tokenOwner, _recipient, _tokenIds[i]) {} catch {
+                // revert if failure is due to unapproved tokens
+                require(
+                    (_tokenContract.ownerOf(_tokenIds[i]) == _tokenOwner &&
+                        address(this) == _tokenContract.getApproved(_tokenIds[i])) ||
+                        _tokenContract.isApprovedForAll(_tokenOwner, address(this)),
+                    "Not owner or approved"
+                );
+            }
             unchecked {
                 ++i;
             }
@@ -90,11 +80,6 @@ contract MigrateERC721 is
     /*///////////////////////////////////////////////////////////////
                         Miscellaneous
     //////////////////////////////////////////////////////////////*/
-
-    /// @dev Checks whether contract metadata can be set in the given execution context.
-    function _canSetContractURI() internal view override returns (bool) {
-        return hasRole(DEFAULT_ADMIN_ROLE, _msgSender());
-    }
 
     /// @dev See ERC2771
     function _msgSender() internal view virtual override returns (address sender) {

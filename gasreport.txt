@@ -1,94 +1,94 @@
 No files changed, compilation skipped
 
-Running 3 tests for src/test/benchmark/EditionStakeBenchmark.t.sol:EditionStakeBenchmarkTest
-[PASS] test_benchmark_editionStake_claimRewards() (gas: 65558)
-[PASS] test_benchmark_editionStake_stake() (gas: 185123)
-[PASS] test_benchmark_editionStake_withdraw() (gas: 46304)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 760.20ms
-
 Running 5 tests for src/test/benchmark/SignatureDropBenchmark.t.sol:SignatureDropBenchmarkTest
 [PASS] test_bechmark_signatureDrop_claim_five_tokens() (gas: 141453)
 [PASS] test_bechmark_signatureDrop_setClaimConditions() (gas: 73752)
 [PASS] test_benchmark_signatureDrop_lazyMint() (gas: 124617)
 [PASS] test_benchmark_signatureDrop_lazyMint_for_delayed_reveal() (gas: 226206)
 [PASS] test_benchmark_signatureDrop_reveal() (gas: 9165)
-Test result: ok. 5 passed; 0 failed; 0 skipped; finished in 818.92ms
+Test result: ok. 5 passed; 0 failed; 0 skipped; finished in 750.19ms
 
-Running 1 test for src/test/benchmark/MigrateERC721Benchmark.t.sol:MigrateERC721BenchmarkTest
-[FAIL. Reason: EvmError: Revert] test_benchmark_migrateERC721_migrate() (gas: 2195655)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 806.34ms
+Running 3 tests for src/test/benchmark/EditionStakeBenchmark.t.sol:EditionStakeBenchmarkTest
+[PASS] test_benchmark_editionStake_claimRewards() (gas: 65558)
+[PASS] test_benchmark_editionStake_stake() (gas: 185123)
+[PASS] test_benchmark_editionStake_withdraw() (gas: 46304)
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 745.44ms
 
-Running 1 test for src/test/benchmark/AirdropERC1155Benchmark.t.sol:AirdropERC1155BenchmarkTest
-[PASS] test_benchmark_airdropERC1155_airdrop() (gas: 38078671)
-Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 845.70ms
+Running 3 tests for src/test/benchmark/PackVRFDirectBenchmark.t.sol:PackVRFDirectBenchmarkTest
+[PASS] test_benchmark_packvrf_createPack() (gas: 1391844)
+[PASS] test_benchmark_packvrf_openPack() (gas: 119959)
+[PASS] test_benchmark_packvrf_openPackAndClaimRewards() (gas: 3599)
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 757.20ms
 
-Running 1 test for src/test/benchmark/AirdropERC721Benchmark.t.sol:AirdropERC721BenchmarkTest
-[PASS] test_benchmark_airdropERC721_airdrop() (gas: 43892679)
-Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 857.01ms
-
-Running 1 test for src/test/benchmark/AirdropERC20Benchmark.t.sol:AirdropERC20BenchmarkTest
-[PASS] test_benchmark_airdropERC20_airdrop() (gas: 32173688)
-Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 913.55ms
-
-Running 2 tests for src/test/benchmark/MultiwrapBenchmark.t.sol:MultiwrapBenchmarkTest
-[PASS] test_benchmark_multiwrap_unwrap() (gas: 92386)
-[PASS] test_benchmark_multiwrap_wrap() (gas: 475292)
-Test result: ok. 2 passed; 0 failed; 0 skipped; finished in 875.58ms
+Running 3 tests for src/test/benchmark/PackBenchmark.t.sol:PackBenchmarkTest
+[PASS] test_benchmark_pack_addPackContents() (gas: 219427)
+[PASS] test_benchmark_pack_createPack() (gas: 1425210)
+[PASS] test_benchmark_pack_openPack() (gas: 165976)
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 760.61ms
 
 Running 4 tests for src/test/benchmark/TokenERC1155Benchmark.t.sol:TokenERC1155BenchmarkTest
 [PASS] test_benchmark_tokenERC1155_burn() (gas: 5726)
 [PASS] test_benchmark_tokenERC1155_mintTo() (gas: 121006)
 [PASS] test_benchmark_tokenERC1155_mintWithSignature_pay_with_ERC20() (gas: 263735)
 [PASS] test_benchmark_tokenERC1155_mintWithSignature_pay_with_native_token() (gas: 292233)
-Test result: ok. 4 passed; 0 failed; 0 skipped; finished in 825.81ms
+Test result: ok. 4 passed; 0 failed; 0 skipped; finished in 790.46ms
 
-Running 3 tests for src/test/benchmark/PackBenchmark.t.sol:PackBenchmarkTest
-[PASS] test_benchmark_pack_addPackContents() (gas: 219427)
-[PASS] test_benchmark_pack_createPack() (gas: 1425210)
-[PASS] test_benchmark_pack_openPack() (gas: 165976)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 915.02ms
+Running 2 tests for src/test/benchmark/MultiwrapBenchmark.t.sol:MultiwrapBenchmarkTest
+[PASS] test_benchmark_multiwrap_unwrap() (gas: 92386)
+[PASS] test_benchmark_multiwrap_wrap() (gas: 475292)
+Test result: ok. 2 passed; 0 failed; 0 skipped; finished in 793.48ms
 
-Running 3 tests for src/test/benchmark/NFTStakeBenchmark.t.sol:NFTStakeBenchmarkTest
-[PASS] test_benchmark_nftStake_claimRewards() (gas: 68804)
-[PASS] test_benchmark_nftStake_stake_five_tokens() (gas: 549399)
-[PASS] test_benchmark_nftStake_withdraw() (gas: 39631)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 841.58ms
+Running 1 test for src/test/benchmark/AirdropERC1155Benchmark.t.sol:AirdropERC1155BenchmarkTest
+[PASS] test_benchmark_airdropERC1155_airdrop() (gas: 38078671)
+Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 833.92ms
 
-Running 3 tests for src/test/benchmark/PackVRFDirectBenchmark.t.sol:PackVRFDirectBenchmarkTest
-[PASS] test_benchmark_packvrf_createPack() (gas: 1391844)
-[PASS] test_benchmark_packvrf_openPack() (gas: 119959)
-[PASS] test_benchmark_packvrf_openPackAndClaimRewards() (gas: 3599)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 831.85ms
-
-Running 3 tests for src/test/benchmark/TokenStakeBenchmark.t.sol:TokenStakeBenchmarkTest
-[PASS] test_benchmark_tokenStake_claimRewards() (gas: 68043)
-[PASS] test_benchmark_tokenStake_stake() (gas: 177989)
-[PASS] test_benchmark_tokenStake_withdraw() (gas: 47868)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 769.16ms
-
-Running 3 tests for src/test/benchmark/TokenERC20Benchmark.t.sol:TokenERC20BenchmarkTest
-[PASS] test_benchmark_tokenERC20_mintTo() (gas: 118511)
-[PASS] test_benchmark_tokenERC20_mintWithSignature_pay_with_ERC20() (gas: 181716)
-[PASS] test_benchmark_tokenERC20_mintWithSignature_pay_with_native_token() (gas: 206128)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 853.59ms
+Running 1 test for src/test/benchmark/MigrateERC721Benchmark.t.sol:MigrateERC721BenchmarkTest
+[FAIL. Reason: EvmError: Revert] test_benchmark_migrateERC721_migrate() (gas: 2195655)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 853.72ms
 
 Running 4 tests for src/test/benchmark/TokenERC721Benchmark.t.sol:TokenERC721BenchmarkTest
 [PASS] test_benchmark_tokenERC721_burn() (gas: 10393)
 [PASS] test_benchmark_tokenERC721_mintTo() (gas: 149955)
 [PASS] test_benchmark_tokenERC721_mintWithSignature_pay_with_ERC20() (gas: 259360)
 [PASS] test_benchmark_tokenERC721_mintWithSignature_pay_with_native_token() (gas: 283702)
-Test result: ok. 4 passed; 0 failed; 0 skipped; finished in 610.14ms
+Test result: ok. 4 passed; 0 failed; 0 skipped; finished in 794.70ms
+
+Running 3 tests for src/test/benchmark/TokenStakeBenchmark.t.sol:TokenStakeBenchmarkTest
+[PASS] test_benchmark_tokenStake_claimRewards() (gas: 68043)
+[PASS] test_benchmark_tokenStake_stake() (gas: 177989)
+[PASS] test_benchmark_tokenStake_withdraw() (gas: 47868)
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 855.37ms
+
+Running 3 tests for src/test/benchmark/NFTStakeBenchmark.t.sol:NFTStakeBenchmarkTest
+[PASS] test_benchmark_nftStake_claimRewards() (gas: 68804)
+[PASS] test_benchmark_nftStake_stake_five_tokens() (gas: 549399)
+[PASS] test_benchmark_nftStake_withdraw() (gas: 39631)
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 875.92ms
+
+Running 3 tests for src/test/benchmark/TokenERC20Benchmark.t.sol:TokenERC20BenchmarkTest
+[PASS] test_benchmark_tokenERC20_mintTo() (gas: 118511)
+[PASS] test_benchmark_tokenERC20_mintWithSignature_pay_with_ERC20() (gas: 181716)
+[PASS] test_benchmark_tokenERC20_mintWithSignature_pay_with_native_token() (gas: 206128)
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 873.43ms
+
+Running 1 test for src/test/benchmark/AirdropERC20Benchmark.t.sol:AirdropERC20BenchmarkTest
+[PASS] test_benchmark_airdropERC20_airdrop() (gas: 32173688)
+Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.01s
+
+Running 1 test for src/test/benchmark/AirdropERC721Benchmark.t.sol:AirdropERC721BenchmarkTest
+[PASS] test_benchmark_airdropERC721_airdrop() (gas: 43892679)
+Test result: ok. 1 passed; 0 failed; 0 skipped; finished in 825.17ms
+
+Running 2 tests for src/test/benchmark/DropERC20Benchmark.t.sol:DropERC20BenchmarkTest
+[PASS] test_bechmark_dropERC20_claim() (gas: 230449)
+[PASS] test_bechmark_dropERC20_setClaimConditions_five_conditions() (gas: 501023)
+Test result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.30s
 
 Running 3 tests for src/test/benchmark/DropERC1155Benchmark.t.sol:DropERC1155BenchmarkTest
 [PASS] test_bechmark_dropERC1155_claim() (gas: 186676)
 [PASS] test_bechmark_dropERC1155_setClaimConditions_five_conditions() (gas: 492309)
 [PASS] test_benchmark_dropERC1155_lazyMint() (gas: 123851)
-Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 3.30s
-
-Running 2 tests for src/test/benchmark/DropERC20Benchmark.t.sol:DropERC20BenchmarkTest
-[PASS] test_bechmark_dropERC20_claim() (gas: 230449)
-[PASS] test_bechmark_dropERC20_setClaimConditions_five_conditions() (gas: 501023)
-Test result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.39s
+Test result: ok. 3 passed; 0 failed; 0 skipped; finished in 2.39s
 
 Running 5 tests for src/test/benchmark/DropERC721Benchmark.t.sol:DropERC721BenchmarkTest
 [PASS] test_bechmark_dropERC721_claim_five_tokens() (gas: 211975)
@@ -96,7 +96,7 @@ Running 5 tests for src/test/benchmark/DropERC721Benchmark.t.sol:DropERC721Bench
 [PASS] test_benchmark_dropERC721_lazyMint() (gas: 124522)
 [PASS] test_benchmark_dropERC721_lazyMint_for_delayed_reveal() (gas: 226102)
 [PASS] test_benchmark_dropERC721_reveal() (gas: 8783)
-Test result: ok. 5 passed; 0 failed; 0 skipped; finished in 2.86s
+Test result: ok. 5 passed; 0 failed; 0 skipped; finished in 2.30s
 
 Ran 17 test suites: 46 tests passed, 1 failed, 0 skipped (47 total tests)
 
