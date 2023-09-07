@@ -30,6 +30,7 @@ import { SignatureDrop } from "contracts/prebuilts/signature-drop/SignatureDrop.
 import { ContractPublisher } from "contracts/infra/ContractPublisher.sol";
 import { IContractPublisher } from "contracts/infra/interface/IContractPublisher.sol";
 import { AirdropERC721 } from "contracts/prebuilts/unaudited/airdrop/AirdropERC721.sol";
+// import { MigrateERC721 } from "contracts/prebuilts/unaudited/airdrop/MigrateERC721.sol";
 import { AirdropERC721Claimable } from "contracts/prebuilts/unaudited/airdrop/AirdropERC721Claimable.sol";
 import { AirdropERC20 } from "contracts/prebuilts/unaudited/airdrop/AirdropERC20.sol";
 import "contracts/prebuilts/unaudited/airdrop/AirdropERC20Claimable.sol";
@@ -40,7 +41,6 @@ import { EditionStake } from "contracts/prebuilts/staking/EditionStake.sol";
 import { TokenStake } from "contracts/prebuilts/staking/TokenStake.sol";
 import { Mock, MockContract } from "../mocks/Mock.sol";
 import "../mocks/MockContractPublisher.sol";
-import { MigrateERC721 } from "contracts/prebuilts/unaudited/airdrop/MigrateERC721.sol";
 
 abstract contract BaseTest is DSTest, Test {
     string public constant NAME = "NAME";
@@ -129,6 +129,8 @@ abstract contract BaseTest is DSTest, Test {
         TWFactory(factory).addImplementation(address(new MockContract(bytes32("Pack"), 1)));
         TWFactory(factory).addImplementation(address(new MockContract(bytes32("AirdropERC721"), 1)));
         TWFactory(factory).addImplementation(address(new AirdropERC721()));
+        // TWFactory(factory).addImplementation(address(new MockContract(bytes32("MigrateERC721"), 1)));
+        // TWFactory(factory).addImplementation(address(new MigrateERC721()));
         TWFactory(factory).addImplementation(address(new MockContract(bytes32("AirdropERC20"), 1)));
         TWFactory(factory).addImplementation(address(new AirdropERC20()));
         TWFactory(factory).addImplementation(address(new MockContract(bytes32("AirdropERC1155"), 1)));
@@ -304,7 +306,8 @@ abstract contract BaseTest is DSTest, Test {
             abi.encodeCall(AirdropERC721.initialize, (deployer, CONTRACT_URI, forwarders()))
         );
 
-        deployContractProxy("MigrateERC721", abi.encodeCall(MigrateERC721.initialize, (forwarders())));
+        // deployContractProxy("MigrateERC721", abi.encodeCall(MigrateERC721.initialize, (forwarders())));
+
         deployContractProxy(
             "AirdropERC20",
             abi.encodeCall(AirdropERC20.initialize, (deployer, CONTRACT_URI, forwarders()))

@@ -1,142 +1,142 @@
 No files changed, compilation skipped
-[2m2023-09-05T02:07:53.565165Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:53.565212Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:53.565280Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:53.565320Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:53.566483Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:53.570565Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.117717Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
 
 Running 1 test for src/test/benchmark/AirdropERC20Benchmark.t.sol:AirdropERC20BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-[2m2023-09-05T02:07:53.571412Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:53.573742Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 754.59ms
-
-Running 1 test for src/test/benchmark/DropERC20Benchmark.t.sol:DropERC20BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 766.76ms
-
-Running 1 test for src/test/benchmark/DropERC1155Benchmark.t.sol:DropERC1155BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 765.36ms
-
-Running 1 test for src/test/benchmark/MigrateERC721Benchmark.t.sol:MigrateERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 752.08ms
-
-Running 1 test for src/test/benchmark/AirdropERC1155Benchmark.t.sol:AirdropERC1155BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 759.30ms
-
-Running 1 test for src/test/benchmark/SignatureDropBenchmark.t.sol:SignatureDropBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-[2m2023-09-05T02:07:54.585992Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.592967Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.600401Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.607833Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.624886Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.628250Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.632219Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-[2m2023-09-05T02:07:54.637392Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 776.40ms
-
-Running 1 test for src/test/benchmark/AirdropERC721Benchmark.t.sol:AirdropERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 776.10ms
-
-Running 1 test for src/test/benchmark/EditionStakeBenchmark.t.sol:EditionStakeBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 779.27ms
-
-Running 1 test for src/test/benchmark/MultiwrapBenchmark.t.sol:MultiwrapBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 762.49ms
-
-Running 1 test for src/test/benchmark/TokenStakeBenchmark.t.sol:TokenStakeBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 764.67ms
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+[2m2023-09-07T18:22:01.118887Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.119303Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.119928Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.123872Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.134176Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.136328Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.137051Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 28.96ms
 
 Running 1 test for src/test/benchmark/PackBenchmark.t.sol:PackBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 772.68ms
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 31.20ms
 
-Running 1 test for src/test/benchmark/DropERC721Benchmark.t.sol:DropERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-[2m2023-09-05T02:07:55.107997Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"implementation not approved" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 788.09ms
+Running 1 test for src/test/benchmark/SignatureDropBenchmark.t.sol:SignatureDropBenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+[2m2023-09-07T18:22:01.458608Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.466718Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.488148Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.519809Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.523801Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.526610Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.538544Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+[2m2023-09-07T18:22:01.548030Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 34.61ms
 
-Running 1 test for src/test/benchmark/PackVRFDirectBenchmark.t.sol:PackVRFDirectBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 796.52ms
+Running 1 test for src/test/benchmark/MigrateERC721Benchmark.t.sol:MigrateERC721BenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 43.59ms
 
-Running 1 test for src/test/benchmark/NFTStakeBenchmark.t.sol:NFTStakeBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 796.03ms
+Running 1 test for src/test/benchmark/DropERC1155Benchmark.t.sol:DropERC1155BenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+[2m2023-09-07T18:22:01.660100Z[0m [31mERROR[0m [2mforge::runner[0m[2m:[0m setUp failed [3mreason[0m[2m=[0m"EvmError: Revert" [3mcontract[0m[2m=[0m0x7fa9385be102ac3eac297483dd6233d62b3e1496
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 32.23ms
+
+Running 1 test for src/test/benchmark/AirdropERC1155Benchmark.t.sol:AirdropERC1155BenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 27.11ms
+
+Running 1 test for src/test/benchmark/DropERC20Benchmark.t.sol:DropERC20BenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 26.41ms
+
+Running 1 test for src/test/benchmark/EditionStakeBenchmark.t.sol:EditionStakeBenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 26.06ms
 
 Running 1 test for src/test/benchmark/TokenERC1155Benchmark.t.sol:TokenERC1155BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 806.83ms
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 28.60ms
+
+Running 1 test for src/test/benchmark/AirdropERC721Benchmark.t.sol:AirdropERC721BenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 25.84ms
+
+Running 1 test for src/test/benchmark/DropERC721Benchmark.t.sol:DropERC721BenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 22.93ms
+
+Running 1 test for src/test/benchmark/TokenStakeBenchmark.t.sol:TokenStakeBenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 37.99ms
+
+Running 1 test for src/test/benchmark/MultiwrapBenchmark.t.sol:MultiwrapBenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 45.06ms
 
 Running 1 test for src/test/benchmark/TokenERC721Benchmark.t.sol:TokenERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 792.12ms
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 26.32ms
+
+Running 1 test for src/test/benchmark/NFTStakeBenchmark.t.sol:NFTStakeBenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 38.48ms
+
+Running 1 test for src/test/benchmark/PackVRFDirectBenchmark.t.sol:PackVRFDirectBenchmarkTest
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 24.67ms
 
 Running 1 test for src/test/benchmark/TokenERC20Benchmark.t.sol:TokenERC20BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
-Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 369.83ms
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
+Test result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 16.46ms
 
 Ran 17 test suites: 0 tests passed, 17 failed, 0 skipped (17 total tests)
 
 Failing tests:
 Encountered 1 failing test in src/test/benchmark/AirdropERC1155Benchmark.t.sol:AirdropERC1155BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/AirdropERC20Benchmark.t.sol:AirdropERC20BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/AirdropERC721Benchmark.t.sol:AirdropERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/DropERC1155Benchmark.t.sol:DropERC1155BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/DropERC20Benchmark.t.sol:DropERC20BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/DropERC721Benchmark.t.sol:DropERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/EditionStakeBenchmark.t.sol:EditionStakeBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/MigrateERC721Benchmark.t.sol:MigrateERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/MultiwrapBenchmark.t.sol:MultiwrapBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/NFTStakeBenchmark.t.sol:NFTStakeBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/PackBenchmark.t.sol:PackBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/PackVRFDirectBenchmark.t.sol:PackVRFDirectBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/SignatureDropBenchmark.t.sol:SignatureDropBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/TokenERC1155Benchmark.t.sol:TokenERC1155BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/TokenERC20Benchmark.t.sol:TokenERC20BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/TokenERC721Benchmark.t.sol:TokenERC721BenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered 1 failing test in src/test/benchmark/TokenStakeBenchmark.t.sol:TokenStakeBenchmarkTest
-[FAIL. Reason: Setup failed: implementation not approved] setUp() (gas: 0)
+[FAIL. Reason: Setup failed: EvmError: Revert] setUp() (gas: 0)
 
 Encountered a total of 17 failing tests, 0 tests succeeded

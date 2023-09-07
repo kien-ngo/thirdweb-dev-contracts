@@ -8,19 +8,17 @@ pragma solidity ^0.8.11;
 
 //  ==========  External imports    ==========
 import { IERC721 } from "../../../eip/interface/IERC721.sol";
-import { ReentrancyGuardUpgradeable } from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import { MulticallUpgradeable } from "@openzeppelin/contracts-upgradeable/utils/MulticallUpgradeable.sol";
 
 //  ==========  Internal imports    ==========
 import { ERC2771ContextUpgradeable, Initializable } from "../../../external-deps/openzeppelin/metatx/ERC2771ContextUpgradeable.sol";
 
-contract MigrateERC721 is Initializable, ReentrancyGuardUpgradeable, ERC2771ContextUpgradeable, MulticallUpgradeable {
+contract MigrateERC721 is Initializable, ERC2771ContextUpgradeable, MulticallUpgradeable {
     constructor() initializer {}
 
     /// @dev Initiliazes the contract, like a constructor.
     function initialize(address[] memory _trustedForwarders) external initializer {
         __ERC2771Context_init_unchained(_trustedForwarders);
-        __ReentrancyGuard_init();
     }
 
     /*///////////////////////////////////////////////////////////////
@@ -31,7 +29,7 @@ contract MigrateERC721 is Initializable, ReentrancyGuardUpgradeable, ERC2771Cont
         address _tokenOwner,
         address _recipient,
         uint256[] calldata _tokenIds
-    ) external nonReentrant {
+    ) external {
         uint256 len = _tokenIds.length;
         uint256 i;
         do {

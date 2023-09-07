@@ -15,10 +15,10 @@ contract MigrateERC721BenchmarkTest is BaseTest {
     address _recipient = getActor(uint160(0));
 
     uint256[] internal _contentsOne;
-    uint256[] internal _contentsTwo;
+    // uint256[] internal _contentsTwo;
 
     uint256 countOne;
-    uint256 countTwo;
+    // uint256 countTwo;
 
     function setUp() public override {
         super.setUp();
@@ -31,15 +31,15 @@ contract MigrateERC721BenchmarkTest is BaseTest {
         tokenOwner.setApprovalForAllERC721(address(erc721), address(migrate), true);
 
         countOne = 1000;
-        countTwo = 200;
+        // countTwo = 200;
 
         for (uint256 i = 0; i < countOne; i++) {
             _contentsOne.push(i);
         }
 
-        for (uint256 i = countOne; i < countOne + countTwo; i++) {
-            _contentsTwo.push(i);
-        }
+        // for (uint256 i = countOne; i < countOne + countTwo; i++) {
+        //     _contentsTwo.push(i);
+        // }
     }
 
     /*///////////////////////////////////////////////////////////////
