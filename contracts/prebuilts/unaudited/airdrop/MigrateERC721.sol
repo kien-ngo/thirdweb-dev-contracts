@@ -33,14 +33,7 @@ contract MigrateERC721 is Initializable, ERC2771ContextUpgradeable, MulticallUpg
         uint256 len = _tokenIds.length;
         uint256 i;
         do {
-            try IERC721(_tokenAddress).safeTransferFrom(_tokenOwner, _recipient, _tokenIds[i]) {} catch {
-                require(
-                    (IERC721(_tokenAddress).ownerOf(_tokenIds[i]) == _tokenOwner &&
-                        address(this) == IERC721(_tokenAddress).getApproved(_tokenIds[i])) ||
-                        IERC721(_tokenAddress).isApprovedForAll(_tokenOwner, address(this)),
-                    "Not owner or approved"
-                );
-            }
+            IERC721(_tokenAddress).transferFrom(_tokenOwner, _recipient, _tokenIds[i]);
             unchecked {
                 ++i;
             }
